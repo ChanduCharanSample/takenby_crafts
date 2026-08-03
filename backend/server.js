@@ -9,6 +9,11 @@ const { storeFile } = require("./services/imageStorage");
 
 dotenv.config();
 
+const missingEnv = ["MONGO_URI", "JWT_SECRET", "ADMIN_EMAIL", "ADMIN_PASSWORD", "EMAIL_USER", "EMAIL_PASS"].filter((k) => !process.env[k]);
+if (missingEnv.length) {
+  console.error(`Missing environment variables: ${missingEnv.join(", ")}`);
+}
+
 connectDB();
 
 const app = express();
