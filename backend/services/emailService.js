@@ -7,9 +7,9 @@ let transporter = null;
 const getTransporter = () => {
   if (transporter) return transporter;
   transporter = nodemailer.createTransport({
-    host: process.env.SMTP_HOST || "smtp.gmail.com",
-    port: Number(process.env.SMTP_PORT) || 587,
-    secure: Number(process.env.SMTP_PORT) ? Number(process.env.SMTP_PORT) === 465 : false,
+    host: process.env.SMTP_HOST || "smtp-relay.brevo.com",
+    port: Number(process.env.SMTP_PORT) || 2525,
+    secure: false,
     family: 4,
     connectionTimeout: 30000,
     greetingTimeout: 30000,

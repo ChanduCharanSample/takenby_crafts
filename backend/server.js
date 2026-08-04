@@ -72,36 +72,6 @@ app.get("/", (req, res) => {
   res.json({ success: true, message: "TakenBy_Crafts API is running 🎨" });
 });
 
-app.get("/api/diag/smtp", async (req, res) => {
-  const net = require("net");
-  const dns = require("dns").promises;
-  const { lookup } = require("dns").promises;
-  const smtpConfigured = Boolean(process.env.EMAIL_USER && process.env.EMAIL_PASS);
-  const host = process.env.SMTP_HOST || "smtp.gmail.com";
-  const port = Number(process.env.SMTP_PORT) || 587;
-  const addrs = {};
-  try { addrs.v4 = await lookup(host, { family: 4 }); } catch (e) { addrs.v4 = e.code; }
-  try { addrs.v6 = await lookup(host, { family: 6 }); } catch (e) { addrs.v6 = e.code; }
-  const r = await new Promise((resolve) => {
-    const s = net.connect({ host, port, family: 4 });
-    const done = (ok, msg) => { s.destroy(); resolve({ host, port, ok, msg }); };
-    s.setTimeout(8000, () => done(false, "timeout"));
-    s.on("connect", () => done(true, "connected"));
-    s.on("error", (e) => done(false, `${e.code} ${e.message}`));
-  });
-  const variants = [];
-  for (const [h, p] of [["1.179.119.1", 587], ["1.179.116.1", 587], ["smtp-relay.brevo.com", 465], ["smtp-relay.brevo.com", 2525], ["8.8.8.8", 53]]) {
-    variants.push(await new Promise((resolve) => {
-      const s = net.connect(p, h);
-      const done = (ok, msg) => { s.destroy(); resolve({ host: h, port: p, ok, msg }); };
-      s.setTimeout(6000, () => done(false, "timeout"));
-      s.on("connect", () => done(true, "connected"));
-      s.on("error", (e) => done(false, `${e.code}`));
-    }));
-  }
-  res.json({ success: true, smtpConfigured, emailUserPrefix: (process.env.EMAIL_USER || "").slice(0, 12), smtpHost: process.env.SMTP_HOST, smtpPort: process.env.SMTP_PORT, addrs, net: r, variants });
-});
-
 const UserRouter = require("./routers/UserRouter");
 const ProductRouter = require("./routers/ProductRouter");
 const CategoryRouter = require("./routers/CategoryRouter");
