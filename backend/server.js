@@ -72,6 +72,30 @@ app.get("/", (req, res) => {
   res.json({ success: true, message: "TakenBy_Crafts API is running 🎨" });
 });
 
+app.get("/api/diag/net", async (req, res) => {
+  const net = require("net");
+  const targets = [
+    { host: "smtp.gmail.com", port: 587 },
+    { host: "smtp.gmail.com", port: 465 },
+    { host: "8.8.8.8", port: 53 },
+  ];
+  const results = [];
+  for (const t of targets) {
+    const r = await new Promise((resolve) => {
+      const s = net.connect(t.port, t.host);
+      const done = (ok, msg) => {
+        s.destroy();
+        resolve({ host: t.host, port: t.port, ok, msg });
+      };
+      s.setTimeout(10000, () => done(false, "timeout"));
+      s.on("connect", () => done(true, "connected"));
+      s.on("error", (e) => done(false, `${e.code} ${e.message}`));
+    });
+    results.push(r);
+  }
+  res.json({ success: true, results });
+});
+
 const UserRouter = require("./routers/UserRouter");
 const ProductRouter = require("./routers/ProductRouter");
 const CategoryRouter = require("./routers/CategoryRouter");
