@@ -6,10 +6,13 @@ let transporter = null;
 
 const getTransporter = () => {
   if (transporter) return transporter;
+  const host = process.env.SMTP_HOST || "smtp-relay.brevo.com";
+  let port = Number(process.env.SMTP_PORT) || 587;
+  if (host.includes("brevo") && port === 587) port = 2525;
   transporter = nodemailer.createTransport({
-    host: process.env.SMTP_HOST || "smtp-relay.brevo.com",
-    port: Number(process.env.SMTP_PORT) || 2525,
-    secure: false,
+    host,
+    port,
+    secure: port === 465,
     family: 4,
     connectionTimeout: 30000,
     greetingTimeout: 30000,

@@ -72,26 +72,6 @@ app.get("/", (req, res) => {
   res.json({ success: true, message: "TakenBy_Crafts API is running 🎨" });
 });
 
-app.get("/api/diag/smtp", async (req, res) => {
-  const net = require("net");
-  const host = process.env.SMTP_HOST || "smtp-relay.brevo.com";
-  const port = Number(process.env.SMTP_PORT) || 2525;
-  const test = (h, p) => new Promise((resolve) => {
-    const s = net.connect(p, h);
-    const done = (ok, msg) => { s.destroy(); resolve({ host: h, port: p, ok, msg }); };
-    s.setTimeout(6000, () => done(false, "timeout"));
-    s.on("connect", () => done(true, "connected"));
-    s.on("error", (e) => done(false, e.code));
-  });
-  res.json({
-    success: true,
-    env: { SMTP_HOST: process.env.SMTP_HOST, SMTP_PORT: process.env.SMTP_PORT, EMAIL_USER: (process.env.EMAIL_USER || "").slice(0, 12) },
-    effective: { host, port },
-    net2525: await test(host, 2525),
-    net587: await test(host, 587),
-  });
-});
-
 const UserRouter = require("./routers/UserRouter");
 const ProductRouter = require("./routers/ProductRouter");
 const CategoryRouter = require("./routers/CategoryRouter");
