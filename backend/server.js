@@ -89,7 +89,17 @@ app.get("/api/diag/smtp", async (req, res) => {
     s.on("connect", () => done(true, "connected"));
     s.on("error", (e) => done(false, `${e.code} ${e.message}`));
   });
-  res.json({ success: true, smtpConfigured, emailUserPrefix: (process.env.EMAIL_USER || "").slice(0, 12), smtpHost: process.env.SMTP_HOST, smtpPort: process.env.SMTP_PORT, addrs, net: r });
+  const variants = [];
+  for (const [h, p] of [["1.179.119.1", 587], ["1.179.116.1", 587], ["smtp-relay.brevo.com", 465], ["smtp-relay.brevo.com", 2525], ["8.8.8.8", 53]]) {
+    variants.push(await new Promise((resolve) => {
+      const s = net.connect(p, h);
+      const done = (ok, msg) => { s.destroy(); resolve({ host: h, port: p, ok, msg }); };
+      s.setTimeout(6000, () => done(false, "timeout"));
+      s.on("connect", () => done(true, "connected"));
+      s.on("error", (e) => done(false, `${e.code}`));
+    }));
+  }
+  res.json({ success: true, smtpConfigured, emailUserPrefix: (process.env.EMAIL_USER || "").slice(0, 12), smtpHost: process.env.SMTP_HOST, smtpPort: process.env.SMTP_PORT, addrs, net: r, variants });
 });
 
 const UserRouter = require("./routers/UserRouter");
