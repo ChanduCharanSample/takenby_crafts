@@ -19,6 +19,7 @@ const Register = () => {
   const [showPass, setShowPass] = useState(false);
   const [showConfirm, setShowConfirm] = useState(false);
   const [otp, setOtp] = useState("");
+  const [devOtp, setDevOtp] = useState("");
   const [error, setError] = useState("");
   const [submitting, setSubmitting] = useState(false);
   const [cooldown, setCooldown] = useState(0);
@@ -80,7 +81,13 @@ const Register = () => {
     if (res.success) {
       setStep(2);
       setCooldown(60);
-      showToast("Verification code sent to your email", "success");
+      if (res.devOtp) setDevOtp(res.devOtp);
+      showToast(
+        res.devOtp
+          ? "Your verification code is shown below (email not configured)"
+          : "Verification code sent to your email",
+        res.devOtp ? "info" : "success"
+      );
     } else {
       setError(res.message);
     }
@@ -94,7 +101,11 @@ const Register = () => {
     setSubmitting(false);
     if (res.success) {
       setCooldown(60);
-      showToast("A new verification code has been sent", "success");
+      if (res.devOtp) setDevOtp(res.devOtp);
+      showToast(
+        res.devOtp ? "A new code is shown below" : "A new verification code has been sent",
+        res.devOtp ? "info" : "success"
+      );
     } else {
       setError(res.message);
     }
@@ -245,6 +256,12 @@ const Register = () => {
             <p className="auth-hint">
               We sent a 6-digit code to <strong>{form.email}</strong>. It expires in 5 minutes.
             </p>
+            {devOtp && (
+              <div className="dev-otp-box">
+                <span>Your code: <strong>{devOtp}</strong></span>
+                <small>Email isn't configured — use this code to continue.</small>
+              </div>
+            )}
             <div className="form-group">
               <label>Enter OTP</label>
               <div className="input-with-icon">

@@ -97,6 +97,7 @@ const requestRegisterOtp = async (req, res) => {
       success: true,
       message: "Verification code sent to your email. It expires in 5 minutes.",
       dev: Boolean(result.dev),
+      devOtp: result.dev ? result.otp : undefined,
     });
   } catch (error) {
     console.error("Request register OTP error:", error.message);

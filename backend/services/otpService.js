@@ -61,7 +61,13 @@ const createOtp = async ({ email, purpose, name, data }) => {
     return { success: false, message: emailRes.message || "Could not send OTP" };
   }
 
-  return { success: true, dev: Boolean(emailRes && emailRes.dev) };
+  const isDev = Boolean(emailRes && emailRes.dev);
+  return {
+    success: true,
+    dev: isDev,
+    // Only expose the OTP in dev mode (SMTP not configured). Remove when email is live.
+    otp: isDev ? otp : undefined,
+  };
 };
 
 // @desc   Verify an OTP for an email + purpose. Single-use, 5 attempts, 5 min expiry.
