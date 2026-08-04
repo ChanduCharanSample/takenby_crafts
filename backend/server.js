@@ -9,9 +9,15 @@ const { storeFile } = require("./services/imageStorage");
 
 dotenv.config();
 
-const missingEnv = ["MONGO_URI", "JWT_SECRET", "ADMIN_EMAIL", "ADMIN_PASSWORD", "EMAIL_USER", "EMAIL_PASS"].filter((k) => !process.env[k]);
-if (missingEnv.length) {
-  console.error(`Missing environment variables: ${missingEnv.join(", ")}`);
+const requiredEnv = ["MONGO_URI", "JWT_SECRET"];
+const optionalEnv = ["ADMIN_EMAIL", "ADMIN_PASSWORD", "EMAIL_USER", "EMAIL_PASS", "CLIENT_URL"];
+const missingRequired = requiredEnv.filter((k) => !process.env[k]);
+const missingOptional = optionalEnv.filter((k) => !process.env[k]);
+if (missingRequired.length) {
+  console.error(`FATAL: Missing required env: ${missingRequired.join(", ")}`);
+}
+if (missingOptional.length) {
+  console.warn(`Optional env not set: ${missingOptional.join(", ")}`);
 }
 
 connectDB();
