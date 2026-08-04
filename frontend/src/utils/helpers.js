@@ -1,7 +1,8 @@
 export const getImageUrl = (image) => {
   if (!image) return "";
   if (image.startsWith("data:") || image.startsWith("http")) return image;
-  return `/uploads/${image}`;
+  const base = import.meta.env.VITE_API_URL || "";
+  return `${base}/uploads/${image}`;
 };
 
 export const formatPrice = (amount) => {
