@@ -18,7 +18,25 @@ connectDB();
 
 const app = express();
 
-app.use(cors({ origin: process.env.CLIENT_URL || "*", credentials: true }));
+app.use(
+  cors({
+    origin(origin, callback) {
+      if (!origin) return callback(null, true);
+      const configured = [
+        process.env.CLIENT_URL,
+        process.env.FRONTEND_URL,
+      ]
+        .filter(Boolean)
+        .map((u) => u.replace(/\/+$/, "").toLowerCase());
+      const normalized = origin.replace(/\/+$/, "").toLowerCase();
+      if (configured.length === 0 || configured.includes(normalized)) {
+        return callback(null, origin);
+      }
+      return callback(new Error("Not allowed by CORS"));
+    },
+    credentials: true,
+  })
+);
 app.use(express.json({ limit: "10mb" }));
 app.use(express.urlencoded({ extended: true }));
 
