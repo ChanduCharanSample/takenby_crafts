@@ -11,6 +11,10 @@ const AdminSettings = () => {
   const [form, setForm] = useState({
     websiteName: settings?.websiteName || "TakenBy_Crafts",
     tagline: settings?.tagline || "",
+    browserTitle: settings?.browserTitle || "",
+    metaTitle: settings?.metaTitle || "",
+    metaDescription: settings?.metaDescription || "",
+    metaKeywords: settings?.metaKeywords || "",
     primaryColor: settings?.primaryColor || "#c77b5a",
     accentColor: settings?.accentColor || "#8a9a7b",
     font: settings?.font || "",
@@ -47,6 +51,10 @@ const AdminSettings = () => {
       const payload = {
         websiteName: form.websiteName,
         tagline: form.tagline,
+        browserTitle: form.browserTitle,
+        metaTitle: form.metaTitle,
+        metaDescription: form.metaDescription,
+        metaKeywords: form.metaKeywords,
         primaryColor: form.primaryColor,
         accentColor: form.accentColor,
         font: form.font,
@@ -101,6 +109,22 @@ const AdminSettings = () => {
               <label>Tagline</label>
               <input value={form.tagline} onChange={(e) => set("tagline", e.target.value)} />
             </div>
+            <div className="form-group full">
+              <label>Browser Title (browser tab)</label>
+              <input value={form.browserTitle} onChange={(e) => set("browserTitle", e.target.value)} placeholder="TakenBy_Crafts | Handmade Gifts & Crafts" />
+            </div>
+            <div className="form-group full">
+              <label>Meta Title (SEO)</label>
+              <input value={form.metaTitle} onChange={(e) => set("metaTitle", e.target.value)} />
+            </div>
+            <div className="form-group full">
+              <label>Meta Description (SEO)</label>
+              <textarea rows="2" value={form.metaDescription} onChange={(e) => set("metaDescription", e.target.value)} />
+            </div>
+            <div className="form-group full">
+              <label>Meta Keywords (SEO, comma separated)</label>
+              <input value={form.metaKeywords} onChange={(e) => set("metaKeywords", e.target.value)} />
+            </div>
             <div className="form-group">
               <label>Primary Color</label>
               <input type="color" value={form.primaryColor} onChange={(e) => set("primaryColor", e.target.value)} />
@@ -126,7 +150,8 @@ const AdminSettings = () => {
               </label>
             </div>
             <div className="form-group">
-              <label>Favicon</label>
+              <label>Favicon (browser tab icon)</label>
+              {settings?.favicon && <img src={getImageUrl(settings.favicon)} alt="Favicon" className="form-image-preview small" />}
               <label className="file-upload-btn">
                 {faviconFile ? "Change Favicon" : "Upload Favicon"}
                 <input type="file" accept="image/*" hidden onChange={(e) => setFaviconFile(e.target.files[0])} />

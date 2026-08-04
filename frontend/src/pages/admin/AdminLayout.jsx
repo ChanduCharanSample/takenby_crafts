@@ -28,11 +28,15 @@ import {
   FaCommentDots,
 } from "react-icons/fa";
 import { useAuth } from "../../context/AuthContext";
+import { useContent } from "../../context/ContentContext";
+import { getImageUrl } from "../../utils/helpers";
 
 const AdminLayout = () => {
   const { user, logout } = useAuth();
+  const { settings } = useContent();
   const navigate = useNavigate();
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const logo = settings?.logo || "";
 
   const links = [
     { to: "/admin", label: "Dashboard", icon: <FaTachometerAlt />, end: true },
@@ -68,7 +72,11 @@ const AdminLayout = () => {
 
       <aside className={`dashboard-sidebar ${sidebarOpen ? "open" : ""}`}>
         <div className="dash-brand">
-          <span className="logo-icon">👑</span>
+          {logo ? (
+            <img src={getImageUrl(logo)} alt={settings?.websiteName || "Logo"} className="dash-brand-logo" />
+          ) : (
+            <span className="logo-icon">👑</span>
+          )}
           <div>
             <strong>Admin Panel</strong>
             <p>{user?.firstName} {user?.lastName}</p>

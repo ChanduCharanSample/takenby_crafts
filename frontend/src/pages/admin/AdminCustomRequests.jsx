@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import { FaPaperPlane } from "react-icons/fa";
 import { customizationService } from "../../services";
 import { getMessage } from "../../services/api";
 import { getImageUrl, formatPrice, formatDate } from "../../utils/helpers";
@@ -11,6 +12,9 @@ const AdminCustomRequests = () => {
   const [items, setItems] = useState([]);
   const [loading, setLoading] = useState(true);
   const [filter, setFilter] = useState("");
+  const [notes, setNotes] = useState({});
+  const [prices, setPrices] = useState({});
+  const [noteOpen, setNoteOpen] = useState({});
 
   const load = () => {
     setLoading(true);
@@ -25,13 +29,35 @@ const AdminCustomRequests = () => {
     load();
   }, []);
 
-  const updateStatus = async (c, status) => {
+  const updateStatus = async (c, status, extra = {}) => {
     try {
-      await customizationService.updateStatus(c._id, { status });
+      await customizationService.updateStatus(c._id, { status, ...extra });
       showToast(`Status updated to ${status}`, "success");
       load();
     } catch (err) {
       showToast(getMessage(err, "Update failed"), "error");
+    }
+  };
+
+  const sendFollowUp = async (c, e) => {
+    e.preventDefault();
+    try {
+      await customizationService.updateStatus(c._id, { status: c.status, customMessage: notes[c._id] || "" });
+      showToast("Message sent to customer", "success");
+      setNotes((n) => ({ ...n, [c._id]: "" }));
+      load();
+    } catch (err) {
+      showToast(getMessage(err, "Could not send message"), "error");
+    }
+  };
+
+  const setPrice = async (c) => {
+    try {
+      await customizationService.updateStatus(c._id, { status: c.status, customPrice: Number(prices[c._id]) || 0 });
+      showToast("Agreed price updated", "success");
+      load();
+    } catch (err) {
+      showToast(getMessage(err, "Could not update price"), "error");
     }
   };
 
@@ -119,7 +145,14 @@ const AdminCustomRequests = () => {
                     <button className="btn btn-sm btn-primary" onClick={() => updateStatus(c, "Approved")}>
                       Approve
                     </button>
-                    <button className="btn btn-sm btn-danger" onClick={() => updateStatus(c, "Rejected")}>
+                    <button
+                      className="btn btn-sm btn-danger"
+                      onClick={() => {
+                        const reason = window.prompt("Rejection reason (shown to customer):", "");
+                        if (reason === null) return;
+                        updateStatus(c, "Rejected", { rejectedReason: reason.trim() });
+                      }}
+                    >
                       Reject
                     </button>
                   </>
@@ -139,7 +172,36 @@ const AdminCustomRequests = () => {
                     Cancel
                   </button>
                 )}
+                <button className="btn btn-sm btn-outline" onClick={() => setNoteOpen((o) => ({ ...o, [c._id]: !o[c._id] }))}>
+                  <FaPaperPlane /> Send Message
+                </button>
               </div>
+
+              {noteOpen[c._id] && (
+                <form className="custom-followup" onSubmit={(e) => sendFollowUp(c, e)}>
+                  <div className="custom-price-row">
+                    <input
+                      type="number"
+                      min="0"
+                      placeholder="Agreed price (₹)"
+                      value={prices[c._id] ?? (c.customPrice || "")}
+                      onChange={(e) => setPrices((p) => ({ ...p, [c._id]: e.target.value }))}
+                    />
+                    <button type="button" className="btn btn-sm btn-primary" onClick={() => setPrice(c)}>
+                      Set Price
+                    </button>
+                  </div>
+                  <textarea
+                    rows="2"
+                    placeholder="Message to customer (price confirmation, design notes, timeline…)"
+                    value={notes[c._id] || ""}
+                    onChange={(e) => setNotes((n) => ({ ...n, [c._id]: e.target.value }))}
+                  />
+                  <button type="submit" className="btn btn-sm btn-primary">
+                    <FaPaperPlane /> Send to Customer
+                  </button>
+                </form>
+              )}
             </div>
           ))}
         </div>

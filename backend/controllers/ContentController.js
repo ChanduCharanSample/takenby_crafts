@@ -112,6 +112,10 @@ const updateSettings = async (req, res) => {
     const fields = [
       "websiteName",
       "tagline",
+      "browserTitle",
+      "metaTitle",
+      "metaDescription",
+      "metaKeywords",
       "logo",
       "favicon",
       "primaryColor",

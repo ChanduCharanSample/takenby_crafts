@@ -3,13 +3,17 @@ import { Link, useNavigate, useLocation } from "react-router-dom";
 import { FaEnvelope, FaLock, FaUserShield, FaEye, FaEyeSlash } from "react-icons/fa";
 import { useAuth } from "../context/AuthContext";
 import { useToast } from "../context/ToastContext";
+import { useContent } from "../context/ContentContext";
+import { getImageUrl } from "../utils/helpers";
 
 const Login = () => {
   const { login, adminLogin } = useAuth();
   const { showToast } = useToast();
+  const { settings } = useContent();
   const navigate = useNavigate();
   const location = useLocation();
   const from = location.state?.from || "/";
+  const logo = settings?.logo || "";
 
   const [tab, setTab] = useState("customer");
 
@@ -73,8 +77,12 @@ const Login = () => {
     <div className="auth-page">
       <div className="auth-card">
         <div className="auth-head">
-          <span className="logo-icon">🎨</span>
-          <h1>Welcome Back to TakenBy_Crafts</h1>
+          {logo ? (
+            <img src={getImageUrl(logo)} alt={settings?.websiteName || "Logo"} className="auth-logo" />
+          ) : (
+            <span className="logo-icon">🎨</span>
+          )}
+          <h1>Welcome Back to {settings?.websiteName || "TakenBy_Crafts"}</h1>
           <p>Login to continue crafting memories</p>
         </div>
 

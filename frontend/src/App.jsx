@@ -4,6 +4,7 @@ import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import ProtectedRoute from "./components/ProtectedRoute";
 import PopupModal from "./components/PopupModal";
+import SeoManager from "./components/SeoManager";
 
 import Home from "./pages/Home";
 import Shop from "./pages/Shop";
@@ -57,6 +58,7 @@ import Faq from "./pages/Faq";
 function App() {
   return (
     <div className="app">
+      <SeoManager />
       <Navbar />
       <PopupModal />
       <main className="main-content">

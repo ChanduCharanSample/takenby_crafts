@@ -4,6 +4,10 @@ const settingsSchema = new mongoose.Schema(
   {
     websiteName: { type: String, default: "TakenBy_Crafts" },
     tagline: { type: String, default: "Handmade Arts & Crafts by TakenBy_Crafts" },
+    browserTitle: { type: String, default: "TakenBy_Crafts | Handmade Gifts & Crafts" },
+    metaTitle: { type: String, default: "TakenBy_Crafts | Handmade Gifts & Crafts" },
+    metaDescription: { type: String, default: "Handmade arts & crafts by TakenBy_Crafts. Personalized resin art, jewelry, décor and more." },
+    metaKeywords: { type: String, default: "handmade crafts, resin art, personalized gifts, takenby_crafts" },
     logo: { type: String, default: "" },
     favicon: { type: String, default: "" },
     primaryColor: { type: String, default: "#c77b5a" },

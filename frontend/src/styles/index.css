@@ -2530,6 +2530,14 @@ h4 {
   margin-bottom: 8px;
 }
 
+.auth-logo {
+  height: 56px;
+  width: auto;
+  max-width: 200px;
+  object-fit: contain;
+  margin: 0 auto 12px;
+}
+
 .auth-head h1 {
   font-size: 1.7rem;
   margin-bottom: 4px;
@@ -3182,6 +3190,14 @@ h4 {
   font-size: 1.8rem;
 }
 
+.dash-brand-logo {
+  width: 40px;
+  height: 40px;
+  object-fit: contain;
+  border-radius: var(--radius);
+  flex-shrink: 0;
+}
+
 .dash-brand strong {
   color: var(--white);
   font-family: var(--font-serif);
@@ -3667,6 +3683,33 @@ h4 {
   gap: 10px;
   margin-top: 14px;
   flex-wrap: wrap;
+}
+
+.custom-followup {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 14px;
+  padding: 14px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: rgba(0, 0, 0, 0.02);
+}
+
+.custom-price-row {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.custom-price-row input {
+  flex: 1;
+  max-width: 220px;
+}
+
+.custom-followup textarea {
+  width: 100%;
+  resize: vertical;
 }
 
 .custom-mini-list {
