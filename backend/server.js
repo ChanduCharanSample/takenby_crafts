@@ -74,17 +74,22 @@ app.get("/", (req, res) => {
 
 app.get("/api/diag/smtp", async (req, res) => {
   const net = require("net");
+  const dns = require("dns").promises;
+  const { lookup } = require("dns").promises;
   const smtpConfigured = Boolean(process.env.EMAIL_USER && process.env.EMAIL_PASS);
+  const host = process.env.SMTP_HOST || "smtp.gmail.com";
+  const port = Number(process.env.SMTP_PORT) || 587;
+  const addrs = {};
+  try { addrs.v4 = await lookup(host, { family: 4 }); } catch (e) { addrs.v4 = e.code; }
+  try { addrs.v6 = await lookup(host, { family: 6 }); } catch (e) { addrs.v6 = e.code; }
   const r = await new Promise((resolve) => {
-    const host = process.env.SMTP_HOST || "smtp.gmail.com";
-    const port = Number(process.env.SMTP_PORT) || 587;
-    const s = net.connect(port, host);
+    const s = net.connect({ host, port, family: 4 });
     const done = (ok, msg) => { s.destroy(); resolve({ host, port, ok, msg }); };
     s.setTimeout(8000, () => done(false, "timeout"));
     s.on("connect", () => done(true, "connected"));
     s.on("error", (e) => done(false, `${e.code} ${e.message}`));
   });
-  res.json({ success: true, smtpConfigured, emailUserPrefix: (process.env.EMAIL_USER || "").slice(0, 12), smtpHost: process.env.SMTP_HOST, smtpPort: process.env.SMTP_PORT, net: r });
+  res.json({ success: true, smtpConfigured, emailUserPrefix: (process.env.EMAIL_USER || "").slice(0, 12), smtpHost: process.env.SMTP_HOST, smtpPort: process.env.SMTP_PORT, addrs, net: r });
 });
 
 const UserRouter = require("./routers/UserRouter");
