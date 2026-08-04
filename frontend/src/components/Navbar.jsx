@@ -110,6 +110,7 @@ const Navbar = () => {
           ) : (
             <span className="logo-icon">🎨</span>
           )}
+          <span className="logo-text">{siteName}</span>
         </Link>
 
         <div className="navbar-search" ref={searchRef}>

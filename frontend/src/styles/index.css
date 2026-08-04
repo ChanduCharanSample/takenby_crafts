@@ -387,21 +387,22 @@ h4 {
 }
 
 .navbar-inner {
-  max-width: 1240px;
+  max-width: 1320px;
   margin: 0 auto;
-  padding: 0 20px;
-  height: 68px;
+  padding: 0 24px;
+  height: 70px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 16px;
+  gap: 20px;
 }
 
 .logo {
   display: flex;
   align-items: center;
-  gap: 8px;
-  font-family: var(--font-serif);
+  gap: 11px;
+  text-decoration: none;
+  flex-shrink: 0;
 }
 
 .logo-icon {
@@ -411,45 +412,74 @@ h4 {
 .logo-img {
   height: 44px;
   width: auto;
-  max-width: 180px;
+  max-width: 200px;
   object-fit: contain;
+  display: block;
 }
 
 .logo-text {
-  font-size: 1.45rem;
+  font-family: var(--font-serif);
+  font-size: 1.3rem;
   font-weight: 700;
-  letter-spacing: 2px;
+  letter-spacing: 0.4px;
+  color: var(--brown);
+  white-space: nowrap;
+  line-height: 1;
+}
+
+.logo:hover .logo-text {
   color: var(--terracotta);
 }
 
 .nav-links {
   display: flex;
   align-items: center;
-  gap: 4px;
+  gap: 2px;
+  flex: 1;
+  justify-content: center;
 }
 
 .nav-links a {
-  padding: 8px 13px;
+  position: relative;
+  padding: 9px 13px;
   border-radius: 8px;
-  font-size: 0.95rem;
+  font-size: 0.92rem;
   font-weight: 500;
   color: var(--text);
-  transition: all 0.2s;
+  transition: color 0.2s;
+}
+
+.nav-links a::after {
+  content: "";
+  position: absolute;
+  left: 13px;
+  right: 13px;
+  bottom: 3px;
+  height: 2px;
+  border-radius: 2px;
+  background: var(--terracotta);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.25s ease;
 }
 
 .nav-links a:hover {
   color: var(--terracotta);
 }
 
+.nav-links a:hover::after,
+.nav-links a.active::after {
+  transform: scaleX(1);
+}
+
 .nav-links a.active {
   color: var(--terracotta);
-  background: rgba(199, 123, 90, 0.12);
 }
 
 .nav-actions {
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 8px;
 }
 
 .icon-btn {
@@ -4041,18 +4071,14 @@ h4 {
   }
 }
 
-@media (max-width: 768px) {
-  .section {
-    padding: 48px 0;
-  }
-
+@media (max-width: 992px) {
   .hamburger {
     display: block;
   }
 
   .nav-links {
-    position: fixed;
-    top: 68px;
+    position: absolute;
+    top: 100%;
     left: 0;
     right: 0;
     background: var(--white);
@@ -4065,7 +4091,7 @@ h4 {
     transition: transform 0.3s ease;
     z-index: 99;
     border-bottom: 1px solid var(--border);
-    max-height: calc(100vh - 68px);
+    max-height: calc(100vh - 70px);
     overflow-y: auto;
   }
 
@@ -4075,6 +4101,12 @@ h4 {
 
   .nav-links a {
     padding: 12px 14px;
+  }
+}
+
+@media (max-width: 768px) {
+  .section {
+    padding: 48px 0;
   }
 
   .hero {
@@ -5226,7 +5258,7 @@ h4 {
 .navbar-search {
   position: relative;
   flex: 1;
-  max-width: 420px;
+  max-width: 300px;
   margin: 0 auto;
 }
 .navbar-search form {
@@ -5769,23 +5801,47 @@ h4 {
 }
 
 /* ============ RESPONSIVE: NAV SEARCH ============ */
-@media (max-width: 1024px) {
+@media (max-width: 1199px) {
+  .navbar-inner {
+    gap: 12px;
+    padding: 0 16px;
+  }
+  .nav-links a {
+    padding: 7px 9px;
+    font-size: 0.88rem;
+  }
+  .logo-text {
+    font-size: 1.12rem;
+    letter-spacing: 0.3px;
+  }
   .navbar-search {
-    max-width: 260px;
+    max-width: 220px;
+  }
+  .nav-actions {
+    gap: 4px;
   }
 }
 @media (max-width: 768px) {
   .navbar-inner {
     flex-wrap: wrap;
     height: auto;
-    padding: 10px 16px;
+    padding: 10px 16px 12px;
     gap: 10px;
+  }
+  .logo-img {
+    height: 40px;
+  }
+  .logo-text {
+    font-size: 1.02rem;
   }
   .navbar-search {
     order: 3;
     flex-basis: 100%;
     max-width: none;
     margin: 0;
+  }
+  .navbar-search input {
+    height: 40px;
   }
   .suggest-dropdown {
     top: 44px;

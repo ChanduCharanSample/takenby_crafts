@@ -3,10 +3,13 @@ import { Link, useNavigate } from "react-router-dom";
 import { FaEnvelope, FaLock, FaPhone, FaUser, FaPaperPlane, FaRedo, FaEye, FaEyeSlash } from "react-icons/fa";
 import { useAuth } from "../context/AuthContext";
 import { useToast } from "../context/ToastContext";
+import { useContent } from "../context/ContentContext";
+import { getImageUrl } from "../utils/helpers";
 
 const Register = () => {
   const { registerRequest, registerVerify } = useAuth();
   const { showToast } = useToast();
+  const { settings } = useContent();
   const navigate = useNavigate();
   const [step, setStep] = useState(1);
   const [form, setForm] = useState({
@@ -134,7 +137,11 @@ const Register = () => {
     <div className="auth-page">
       <div className="auth-card wide">
         <div className="auth-head">
-          <span className="logo-icon">🎨</span>
+          {settings?.logo ? (
+            <img src={getImageUrl(settings.logo)} alt={settings?.websiteName || "Logo"} className="auth-logo" />
+          ) : (
+            <span className="logo-icon">🎨</span>
+          )}
           <h1>Create Your TakenBy_Crafts Account</h1>
           <p>{step === 1 ? "Create your account to shop & customise" : "Verify your email to finish"}</p>
         </div>

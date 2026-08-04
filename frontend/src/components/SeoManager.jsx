@@ -23,14 +23,16 @@ const SeoManager = () => {
     setMeta("title", settings.metaTitle || title);
     setMeta("description", settings.metaDescription);
     setMeta("keywords", settings.metaKeywords);
-    if (settings.favicon) {
-      let link = document.querySelector('link[rel="icon"]');
-      if (!link) {
-        link = document.createElement("link");
+    const favicon = settings.favicon || settings.logo;
+    if (favicon) {
+      const href = getImageUrl(favicon);
+      document.querySelectorAll('link[rel="icon"], link[rel="shortcut icon"], link[rel="apple-touch-icon"]').forEach((l) => (l.href = href));
+      if (!document.querySelector('link[rel="icon"]')) {
+        const link = document.createElement("link");
         link.setAttribute("rel", "icon");
+        link.setAttribute("href", href);
         document.head.appendChild(link);
       }
-      link.setAttribute("href", getImageUrl(settings.favicon));
     }
   }, [settings]);
 

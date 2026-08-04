@@ -154,7 +154,7 @@ const AdminSettings = () => {
               {settings?.favicon && <img src={getImageUrl(settings.favicon)} alt="Favicon" className="form-image-preview small" />}
               <label className="file-upload-btn">
                 {faviconFile ? "Change Favicon" : "Upload Favicon"}
-                <input type="file" accept="image/*" hidden onChange={(e) => setFaviconFile(e.target.files[0])} />
+                <input type="file" accept="image/png,image/svg+xml,image/x-icon,image/vnd.microsoft.icon,.png,.svg,.ico" hidden onChange={(e) => setFaviconFile(e.target.files[0])} />
               </label>
             </div>
           </div>
