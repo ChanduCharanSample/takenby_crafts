@@ -10,6 +10,7 @@ const getTransporter = () => {
     host: process.env.SMTP_HOST || "smtp.gmail.com",
     port: Number(process.env.SMTP_PORT) || 465,
     secure: Number(process.env.SMTP_PORT) ? Number(process.env.SMTP_PORT) === 465 : true,
+    family: 4,
     connectionTimeout: 30000,
     greetingTimeout: 30000,
     socketTimeout: 60000,
