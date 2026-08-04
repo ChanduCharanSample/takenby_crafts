@@ -38,9 +38,11 @@ const sendEmail = async ({ to, subject, html, text }) => {
     return { success: true, dev: true };
   }
 
+  const fromName = process.env.EMAIL_FROM || BRAND;
+  const fromAddress = process.env.EMAIL_FROM_ADDRESS || process.env.EMAIL_USER;
   try {
     await getTransporter().sendMail({
-      from: `"${process.env.EMAIL_FROM || BRAND}" <${process.env.EMAIL_USER}>`,
+      from: `"${fromName}" <${fromAddress}>`,
       to,
       subject,
       html,
