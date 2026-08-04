@@ -44,8 +44,8 @@ const sendEmail = async ({ to, subject, html, text }) => {
     });
     return { success: true };
   } catch (error) {
-    console.error("Email send error:", error.message);
-    return { success: false, message: error.message };
+    console.error("Email send error:", error.message, "| code:", error.code);
+    return { success: false, message: `${error.message} (${error.code})` };
   }
 };
 
