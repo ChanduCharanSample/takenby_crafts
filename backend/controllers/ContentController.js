@@ -348,6 +348,7 @@ const createReel = async (req, res) => {
   try {
     const body = JSON.parse(req.body.data || "{}");
     if (!body.url) return res.status(400).json({ success: false, message: "Reel URL is required" });
+    if (req.files && req.files[0]) body.thumbnail = await storeFile(req.files[0]);
     const reel = await Reel.create(body);
     res.status(201).json({ success: true, message: "Reel created", reel });
   } catch (error) {
@@ -363,6 +364,7 @@ const updateReel = async (req, res) => {
     ["url", "title", "description", "thumbnail", "featured", "order", "active"].forEach((f) => {
       if (body[f] !== undefined) reel[f] = body[f];
     });
+    if (req.files && req.files[0]) reel.thumbnail = await storeFile(req.files[0]);
     await reel.save();
     res.json({ success: true, message: "Reel updated", reel });
   } catch (error) {

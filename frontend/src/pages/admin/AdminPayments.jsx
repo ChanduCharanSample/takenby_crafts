@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { FaCheck, FaTimes, FaFileImage } from "react-icons/fa";
+import { FaCheck, FaTimes } from "react-icons/fa";
 import { orderService } from "../../services";
 import { getMessage } from "../../services/api";
 import { getImageUrl, formatPrice, formatDate } from "../../utils/helpers";
@@ -93,14 +93,22 @@ const AdminPayments = () => {
               </div>
 
               <div className="payment-screenshot-area">
-                <a
-                  href={getImageUrl(o.payment?.upiScreenshot)}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="btn btn-outline btn-sm"
-                >
-                  <FaFileImage /> View Payment Screenshot
-                </a>
+                {o.payment?.upiScreenshot ? (
+                  <a
+                    href={getImageUrl(o.payment.upiScreenshot)}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="payment-screenshot-link"
+                  >
+                    <img
+                      src={getImageUrl(o.payment.upiScreenshot)}
+                      alt="UPI payment screenshot"
+                      className="payment-screenshot-img"
+                    />
+                  </a>
+                ) : (
+                  <p className="upi-txn-note">No screenshot uploaded</p>
+                )}
                 {o.payment?.upiTransactionId && (
                   <span className="upi-txn-note">
                     UPI Txn ID: <strong>{o.payment.upiTransactionId}</strong>

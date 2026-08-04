@@ -19,10 +19,20 @@ if (isCloudinaryConfigured()) {
 
 // Store a single multer file.
 // Returns a Cloudinary secure URL when Cloudinary is configured,
-// otherwise the local filename (dev fallback).
+// otherwise a base64 data URI persisted in MongoDB (survives Render restarts).
 const storeFile = async (file) => {
   if (!file) return "";
-  if (!isCloudinaryConfigured()) return file.filename;
+  if (!isCloudinaryConfigured()) {
+    try {
+      const mime = file.mimetype || "image/png";
+      const data = fs.readFileSync(file.path);
+      fs.unlink(file.path, () => {});
+      return `data:${mime};base64,${data.toString("base64")}`;
+    } catch (error) {
+      console.error("Local read failed, falling back to filename:", error.message);
+      return file.filename;
+    }
+  }
 
   try {
     const result = await cloudinary.uploader.upload(file.path, {
@@ -76,6 +86,7 @@ const deleteImage = async (value) => {
     }
     return;
   }
+  if (value.startsWith("data:")) return;
   const filePath = path.join(uploadDir, path.basename(value));
   if (fs.existsSync(filePath)) {
     try {

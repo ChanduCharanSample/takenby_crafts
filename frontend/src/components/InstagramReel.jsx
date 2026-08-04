@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { FaInstagram, FaPlay, FaVolumeMute, FaVolumeUp } from "react-icons/fa";
 import { contentService } from "../services";
+import { getImageUrl } from "../utils/helpers";
 
 const extractCode = (url) => {
   if (!url) return "";
@@ -8,7 +9,7 @@ const extractCode = (url) => {
   return m ? m[1] : "";
 };
 
-const InstagramReel = ({ url, title }) => {
+const InstagramReel = ({ url, title, thumbnail }) => {
   const code = extractCode(url);
   const videoRef = useRef(null);
   const [videoUrl, setVideoUrl] = useState("");
@@ -84,17 +85,26 @@ const InstagramReel = ({ url, title }) => {
   if (!url || !code || status === "failed") {
     return (
       <div className="reel-card">
-        <div className="reel-fallback">
-          <div className="reel-fallback-icon">
-            <FaInstagram size={38} />
+        {thumbnail ? (
+          <div className="reel-fallback reel-fallback-img" style={{ backgroundImage: `url(${getImageUrl(thumbnail)})` }}>
+            <div className="reel-fallback-icon">
+              <FaInstagram size={38} />
+            </div>
+            <p>{title || "Watch this reel"}</p>
           </div>
-          <p>{title || "Watch this reel"}</p>
-          {url ? (
-            <a href={url} target="_blank" rel="noreferrer" className="btn btn-sm btn-outline">
-              Open on Instagram
-            </a>
-          ) : null}
-        </div>
+        ) : (
+          <div className="reel-fallback">
+            <div className="reel-fallback-icon">
+              <FaInstagram size={38} />
+            </div>
+            <p>{title || "Watch this reel"}</p>
+          </div>
+        )}
+        {url ? (
+          <a href={url} target="_blank" rel="noreferrer" className="btn btn-sm btn-outline">
+            Open on Instagram
+          </a>
+        ) : null}
       </div>
     );
   }
@@ -110,7 +120,7 @@ const InstagramReel = ({ url, title }) => {
           playsInline
           muted={muted}
           preload="metadata"
-          poster=""
+          poster={thumbnail ? getImageUrl(thumbnail) : ""}
           onLoadedMetadata={onLoadedMetadata}
           onTimeUpdate={onTimeUpdate}
           onPlay={() => setStatus("playing")}

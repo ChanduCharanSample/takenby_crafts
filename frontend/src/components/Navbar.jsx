@@ -104,13 +104,12 @@ const Navbar = () => {
   return (
     <header className="navbar">
       <div className="navbar-inner">
-        <Link to="/" className="logo" onClick={() => setMenuOpen(false)}>
+        <Link to="/" className="logo" aria-label={siteName} onClick={() => setMenuOpen(false)}>
           {logo ? (
             <img src={getImageUrl(logo)} alt={siteName} className="logo-img" />
           ) : (
             <span className="logo-icon">🎨</span>
           )}
-          <span className="logo-text">{siteName}</span>
         </Link>
 
         <div className="navbar-search" ref={searchRef}>

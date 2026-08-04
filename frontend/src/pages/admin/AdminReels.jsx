@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { FaEdit, FaTrash, FaPlus, FaInstagram } from "react-icons/fa";
 import { contentService } from "../../services";
 import { getMessage } from "../../services/api";
+import { getImageUrl } from "../../utils/helpers";
 import { useToast } from "../../context/ToastContext";
 import Spinner from "../../components/Spinner";
 
@@ -22,6 +23,7 @@ const AdminReels = () => {
   const [showForm, setShowForm] = useState(false);
   const [editing, setEditing] = useState(null);
   const [form, setForm] = useState(emptyForm);
+  const [thumbFile, setThumbFile] = useState(null);
 
   const load = () => {
     setLoading(true);
@@ -39,6 +41,7 @@ const AdminReels = () => {
   const openCreate = () => {
     setEditing(null);
     setForm({ ...emptyForm, order: items.length });
+    setThumbFile(null);
     setShowForm(true);
   };
 
@@ -53,6 +56,7 @@ const AdminReels = () => {
       order: r.order || 0,
       active: r.active !== false,
     });
+    setThumbFile(null);
     setShowForm(true);
   };
 
@@ -61,6 +65,7 @@ const AdminReels = () => {
     try {
       const fd = new FormData();
       fd.append("data", JSON.stringify(form));
+      if (thumbFile) fd.append("thumbnail", thumbFile);
       if (editing) {
         await contentService.updateReel(editing._id, fd);
         showToast("Reel updated", "success");
@@ -122,8 +127,18 @@ const AdminReels = () => {
                   <input value={form.description} onChange={(e) => setForm({ ...form, description: e.target.value })} />
                 </div>
                 <div className="form-group">
-                  <label>Thumbnail URL (optional)</label>
-                  <input value={form.thumbnail} onChange={(e) => setForm({ ...form, thumbnail: e.target.value })} />
+                  <label>Thumbnail</label>
+                  {(thumbFile || form.thumbnail) && (
+                    <img
+                      src={thumbFile ? URL.createObjectURL(thumbFile) : getImageUrl(form.thumbnail)}
+                      alt="Thumbnail"
+                      className="form-image-preview small"
+                    />
+                  )}
+                  <label className="file-upload-btn">
+                    {thumbFile ? "Change Thumbnail" : "Upload Thumbnail"}
+                    <input type="file" accept="image/*" hidden onChange={(e) => setThumbFile(e.target.files[0])} />
+                  </label>
                 </div>
                 <div className="form-group">
                   <label>Order</label>
@@ -158,7 +173,11 @@ const AdminReels = () => {
         ) : (
           items.map((r) => (
             <div className="checkout-card reel-admin-card" key={r._id}>
-              <div className="reel-admin-icon"><FaInstagram /></div>
+              {r.thumbnail ? (
+                <img src={getImageUrl(r.thumbnail)} alt={r.title || "reel"} className="reel-admin-thumb" />
+              ) : (
+                <div className="reel-admin-icon"><FaInstagram /></div>
+              )}
               <div>
                 <strong>{r.title || "Untitled reel"}</strong>
                 <p className="order-date">{r.url}</p>

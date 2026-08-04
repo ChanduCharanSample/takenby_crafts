@@ -58,7 +58,7 @@ app.post("/api/upload", (req, res, next) => {
     }
     try {
       const stored = await storeFile(req.file);
-      const url = stored.startsWith("http")
+      const url = stored.startsWith("http") || stored.startsWith("data:")
         ? stored
         : `${req.protocol}://${req.get("host")}/uploads/${stored}`;
       res.json({ success: true, url });

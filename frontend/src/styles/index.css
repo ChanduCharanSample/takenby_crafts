@@ -408,6 +408,13 @@ h4 {
   font-size: 1.5rem;
 }
 
+.logo-img {
+  height: 44px;
+  width: auto;
+  max-width: 180px;
+  object-fit: contain;
+}
+
 .logo-text {
   font-size: 1.45rem;
   font-weight: 700;
@@ -4346,6 +4353,13 @@ h4 {
   white-space: nowrap;
   font-size: 0.9rem;
 }
+.announcement-chip-img {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  object-fit: cover;
+  flex-shrink: 0;
+}
 .announcement-title {
   font-weight: 600;
 }
@@ -4483,6 +4497,11 @@ h4 {
   padding: 16px;
   background: linear-gradient(160deg, #f2a8a8, #c96a6a 55%, #a84b5d);
   color: #fff;
+}
+.reel-fallback-img {
+  background-size: cover;
+  background-position: center;
+  background-color: #1a1a1a;
 }
 .reel-fallback-icon {
   position: relative;
@@ -4964,6 +4983,17 @@ h4 {
   flex-wrap: wrap;
   margin-bottom: 14px;
 }
+.payment-screenshot-link {
+  display: inline-block;
+}
+.payment-screenshot-img {
+  width: 220px;
+  max-width: 100%;
+  height: auto;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  cursor: zoom-in;
+}
 .payment-order-actions {
   display: flex;
   gap: 10px;
@@ -5027,6 +5057,14 @@ h4 {
   align-items: center;
   justify-content: center;
   font-size: 1.5rem;
+  flex-shrink: 0;
+}
+
+.reel-admin-thumb {
+  width: 64px;
+  height: 64px;
+  border-radius: var(--radius);
+  object-fit: cover;
   flex-shrink: 0;
 }
 .gallery-admin-grid {

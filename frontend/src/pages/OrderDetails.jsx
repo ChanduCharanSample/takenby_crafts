@@ -5,7 +5,6 @@ import {
   FaRedo,
   FaWhatsapp,
   FaShieldAlt,
-  FaFileImage,
 } from "react-icons/fa";
 import { orderService, reviewService } from "../services";
 import { getMessage } from "../services/api";
@@ -332,7 +331,11 @@ const OrderDetails = () => {
                 rel="noreferrer"
                 className="screenshot-link"
               >
-                <FaFileImage /> View uploaded payment screenshot
+                <img
+                  src={getImageUrl(order.payment.upiScreenshot)}
+                  alt="UPI payment screenshot"
+                  className="payment-screenshot-img"
+                />
               </a>
               {order.payment.upiTransactionId && (
                 <p className="upi-txn-note">

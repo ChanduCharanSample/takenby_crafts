@@ -128,8 +128,11 @@ const Home = () => {
             <div className="announcement-strip">
               {activeAnnouncements.slice(0, 3).map((a) => (
                 <div className="announcement-chip" key={a._id}>
-                  <span className="announcement-title">{a.title}</span>
-                  {a.description && <span className="announcement-desc">{a.description}</span>}
+                  {a.image && <img src={getImageUrl(a.image)} alt={a.title} className="announcement-chip-img" />}
+                  <div>
+                    <span className="announcement-title">{a.title}</span>
+                    {a.description && <span className="announcement-desc">{a.description}</span>}
+                  </div>
                 </div>
               ))}
             </div>
@@ -313,7 +316,7 @@ const Home = () => {
             </div>
             <div className="reels-grid">
               {reels.filter((r) => r.active).map((r) => (
-                <InstagramReel key={r._id} url={r.url} title={r.title} />
+                <InstagramReel key={r._id} url={r.url} title={r.title} thumbnail={r.thumbnail} />
               ))}
             </div>
             {instagramUrl && (
