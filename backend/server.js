@@ -72,6 +72,21 @@ app.get("/", (req, res) => {
   res.json({ success: true, message: "TakenBy_Crafts API is running 🎨" });
 });
 
+app.get("/api/diag/smtp", async (req, res) => {
+  const net = require("net");
+  const smtpConfigured = Boolean(process.env.EMAIL_USER && process.env.EMAIL_PASS);
+  const r = await new Promise((resolve) => {
+    const host = process.env.SMTP_HOST || "smtp.gmail.com";
+    const port = Number(process.env.SMTP_PORT) || 587;
+    const s = net.connect(port, host);
+    const done = (ok, msg) => { s.destroy(); resolve({ host, port, ok, msg }); };
+    s.setTimeout(8000, () => done(false, "timeout"));
+    s.on("connect", () => done(true, "connected"));
+    s.on("error", (e) => done(false, `${e.code} ${e.message}`));
+  });
+  res.json({ success: true, smtpConfigured, emailUserPrefix: (process.env.EMAIL_USER || "").slice(0, 12), smtpHost: process.env.SMTP_HOST, smtpPort: process.env.SMTP_PORT, net: r });
+});
+
 const UserRouter = require("./routers/UserRouter");
 const ProductRouter = require("./routers/ProductRouter");
 const CategoryRouter = require("./routers/CategoryRouter");
