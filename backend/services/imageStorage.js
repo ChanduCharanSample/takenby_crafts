@@ -1,8 +1,34 @@
 const cloudinary = require("cloudinary").v2;
 const fs = require("fs");
 const path = require("path");
+const { Jimp, JimpMime } = require("jimp");
 
 const uploadDir = path.join(__dirname, "..", "uploads");
+
+// Resize/compress an image buffer. Returns null when it should be left untouched
+// (already small, unsupported format like SVG/ICO, or the result isn't smaller).
+const MAX_IMAGE_WIDTH = 1000;
+const MIN_COMPRESS_BYTES = 200 * 1024;
+
+const compressBuffer = async (buffer) => {
+  try {
+    if (!buffer || !buffer.length) return null;
+    if (buffer.length < MIN_COMPRESS_BYTES) return null;
+    const image = await Jimp.read(buffer);
+    if (!image) return null;
+    if (image.width > MAX_IMAGE_WIDTH) {
+      image.resize({ w: MAX_IMAGE_WIDTH });
+    }
+    const hasAlpha = typeof image.hasAlpha === "function" && image.hasAlpha();
+    const out = hasAlpha
+      ? await image.getBuffer(JimpMime.png)
+      : await image.getBuffer(JimpMime.jpeg, { quality: 80 });
+    if (out.length >= buffer.length) return null;
+    return { buffer: out, mime: hasAlpha ? "image/png" : "image/jpeg" };
+  } catch (error) {
+    return null;
+  }
+};
 
 const isCloudinaryConfigured = () =>
   !!(process.env.CLOUDINARY_CLOUD_NAME &&
@@ -24,8 +50,10 @@ const storeFile = async (file) => {
   if (!file) return "";
   if (!isCloudinaryConfigured()) {
     try {
-      const mime = file.mimetype || "image/png";
-      const data = fs.readFileSync(file.path);
+      const raw = fs.readFileSync(file.path);
+      const compressed = await compressBuffer(raw);
+      const data = compressed ? compressed.buffer : raw;
+      const mime = compressed ? compressed.mime : file.mimetype;
       fs.unlink(file.path, () => {});
       return `data:${mime};base64,${data.toString("base64")}`;
     } catch (error) {
@@ -35,7 +63,8 @@ const storeFile = async (file) => {
   }
 
   try {
-    const result = await cloudinary.uploader.upload(file.path, {
+    const compressed = await compressBuffer(fs.readFileSync(file.path));
+    const result = await cloudinary.uploader.upload(compressed ? compressed.buffer : file.path, {
       folder: "craftora",
       resource_type: "image",
     });
@@ -101,4 +130,5 @@ module.exports = {
   storeFiles,
   deleteImage,
   getPublicId,
+  compressBuffer,
 };

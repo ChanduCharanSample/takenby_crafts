@@ -6,10 +6,10 @@ const { storeFile, deleteImage } = require("../services/imageStorage");
 // @access Public
 const getCategories = async (req, res) => {
   try {
-    const categories = await Category.find({ isActive: true }).sort({
-      order: 1,
-      name: 1,
-    });
+    const categories = await Category.aggregate([
+      { $match: { isActive: true } },
+      { $sort: { order: 1, name: 1 } },
+    ]).allowDiskUse(true);
     res.json({ success: true, count: categories.length, categories });
   } catch (error) {
     console.error("Get categories error:", error.message);
@@ -22,7 +22,9 @@ const getCategories = async (req, res) => {
 // @access Private/Admin
 const getAllCategories = async (req, res) => {
   try {
-    const categories = await Category.find().sort({ order: 1, name: 1 });
+    const categories = await Category.aggregate([
+      { $sort: { order: 1, name: 1 } },
+    ]).allowDiskUse(true);
     res.json({ success: true, count: categories.length, categories });
   } catch (error) {
     console.error("Get all categories error:", error.message);
