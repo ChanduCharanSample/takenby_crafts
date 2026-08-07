@@ -83,6 +83,7 @@ const CustomizationRouter = require("./routers/CustomizationRouter");
 const CouponRouter = require("./routers/CouponRouter");
 const ContentRouter = require("./routers/ContentRouter");
 const AdminRouter = require("./routers/AdminRouter");
+const ContactMessageRouter = require("./routers/ContactMessageRouter");
 
 app.use("/api/users", UserRouter);
 app.use("/api/products", ProductRouter);
@@ -95,6 +96,7 @@ app.use("/api/customizations", CustomizationRouter);
 app.use("/api/coupons", CouponRouter);
 app.use("/api/content", ContentRouter);
 app.use("/api/admin", AdminRouter);
+app.use("/api/contact-messages", ContactMessageRouter);
 
 app.use(notFound);
 app.use(errorHandler);

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { NavLink, Outlet, useNavigate } from "react-router-dom";
 import {
   FaTachometerAlt,
@@ -26,17 +26,39 @@ import {
   FaWindowRestore,
   FaQuestionCircle,
   FaCommentDots,
+  FaInbox,
 } from "react-icons/fa";
 import { useAuth } from "../../context/AuthContext";
 import { useContent } from "../../context/ContentContext";
 import { getImageUrl } from "../../utils/helpers";
+import { contactMessageService } from "../../services";
 
 const AdminLayout = () => {
   const { user, logout } = useAuth();
   const { settings } = useContent();
   const navigate = useNavigate();
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [unreadCount, setUnreadCount] = useState(0);
   const logo = settings?.logo || "";
+
+  useEffect(() => {
+    let active = true;
+    const fetchCount = () =>
+      contactMessageService
+        .unreadCount()
+        .then(({ data }) => {
+          if (active) setUnreadCount(data.unread || 0);
+        })
+        .catch(() => {
+          if (active) setUnreadCount(0);
+        });
+    fetchCount();
+    const t = setInterval(fetchCount, 60000);
+    return () => {
+      active = false;
+      clearInterval(t);
+    };
+  }, []);
 
   const links = [
     { to: "/admin", label: "Dashboard", icon: <FaTachometerAlt />, end: true },
@@ -55,6 +77,7 @@ const AdminLayout = () => {
     { to: "/admin/gallery", label: "Gallery", icon: <FaImages /> },
     { to: "/admin/about", label: "About Page", icon: <FaInfoCircle /> },
     { to: "/admin/contact", label: "Contact Page", icon: <FaEnvelope /> },
+    { to: "/admin/contact-messages", label: "Contact Messages", icon: <FaInbox /> },
     { to: "/admin/social", label: "Social Links", icon: <FaShareAlt /> },
     { to: "/admin/settings", label: "Settings", icon: <FaCog /> },
     { to: "/admin/analytics", label: "Analytics", icon: <FaChartBar /> },
@@ -91,6 +114,9 @@ const AdminLayout = () => {
               onClick={() => setSidebarOpen(false)}
             >
               {l.icon} {l.label}
+              {l.to === "/admin/contact-messages" && unreadCount > 0 && (
+                <span className="sidebar-badge">{unreadCount}</span>
+              )}
             </NavLink>
           ))}
           <button

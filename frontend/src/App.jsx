@@ -49,6 +49,7 @@ import AdminSettings from "./pages/admin/AdminSettings";
 import AdminSocial from "./pages/admin/AdminSocial";
 import AdminAbout from "./pages/admin/AdminAbout";
 import AdminContact from "./pages/admin/AdminContact";
+import AdminContactMessages from "./pages/admin/AdminContactMessages";
 import AdminFestivalCampaigns from "./pages/admin/AdminFestivalCampaigns";
 import AdminPopups from "./pages/admin/AdminPopups";
 import AdminFAQs from "./pages/admin/AdminFAQs";
@@ -179,6 +180,7 @@ function App() {
             <Route path="social" element={<AdminSocial />} />
             <Route path="about" element={<AdminAbout />} />
             <Route path="contact" element={<AdminContact />} />
+            <Route path="contact-messages" element={<AdminContactMessages />} />
             <Route path="campaigns" element={<AdminFestivalCampaigns />} />
             <Route path="popups" element={<AdminPopups />} />
             <Route path="faqs" element={<AdminFAQs />} />

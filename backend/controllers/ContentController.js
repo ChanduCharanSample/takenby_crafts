@@ -20,6 +20,18 @@ const getDoc = async (Model, defaults = {}) => {
   return doc;
 };
 
+// Accepts payloads sent either as FormData field "data" (JSON string) or as a plain JSON body
+const parseBody = (req) => {
+  if (typeof req.body.data === "string") {
+    try {
+      return JSON.parse(req.body.data);
+    } catch {
+      return {};
+    }
+  }
+  return req.body || {};
+};
+
 // @desc   Get all public site content in one call
 // @route  GET /api/content/bootstrap
 // @access Public
@@ -231,7 +243,7 @@ const updateFooter = async (req, res) => {
 const updateSocialLinks = async (req, res) => {
   try {
     const social = await getDoc(SocialLinks);
-    const body = JSON.parse(req.body.data || "{}");
+    const body = parseBody(req);
     ["instagram", "whatsapp", "youtube", "facebook", "pinterest", "maps", "website"].forEach((f) => {
       if (body[f] !== undefined) social[f] = body[f];
     });
@@ -279,7 +291,7 @@ const updateAbout = async (req, res) => {
 const updateContact = async (req, res) => {
   try {
     const contact = await getDoc(Contact);
-    const body = JSON.parse(req.body.data || "{}");
+    const body = parseBody(req);
     ["heading", "subtitle", "address", "phone", "whatsapp", "email", "instagram", "mapsEmbed", "mapsLink", "hours"].forEach((f) => {
       if (body[f] !== undefined) contact[f] = body[f];
     });

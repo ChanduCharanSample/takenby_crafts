@@ -7,6 +7,7 @@ const Coupon = require("../models/coupons");
 const Customization = require("../models/customizations");
 const Announcement = require("../models/announcements");
 const Reel = require("../models/reels");
+const ContactMessage = require("../models/contactMessage");
 
 // @desc   Get admin dashboard stats
 // @route  GET /api/admin/stats
@@ -30,6 +31,7 @@ const getAdminStats = async (req, res) => {
       pendingCustomizations,
       pendingPayments,
       lowStockProducts,
+      unreadMessages,
       recentOrders,
       recentReviews,
       topProducts,
@@ -82,6 +84,7 @@ const getAdminStats = async (req, res) => {
       })
         .select("name stock lowStockThreshold images coverImage")
         .limit(8),
+      ContactMessage.countDocuments({ status: "Unread" }),
       Order.find().sort({ createdAt: -1 }).limit(5).populate("user", "firstName lastName"),
       Review.find().sort({ createdAt: -1 }).limit(5).populate("user", "firstName lastName").populate("product", "name"),
       Product.find({ salesCount: { $gt: 0 } })
@@ -125,6 +128,7 @@ const getAdminStats = async (req, res) => {
         pendingPayments,
         lowStock: lowStockProducts,
         lowStockCount: lowStockProducts.length,
+        unreadMessages,
         recentOrders,
         recentReviews,
         topProducts,

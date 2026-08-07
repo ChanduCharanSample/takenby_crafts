@@ -17,6 +17,7 @@ import {
   FaVideo,
   FaCalendarDay,
   FaCalendarAlt,
+  FaInbox,
 } from "react-icons/fa";
 import { adminService } from "../../services";
 import { formatPrice, formatDate, getImageUrl } from "../../utils/helpers";
@@ -68,6 +69,13 @@ const AdminDashboard = () => {
         <StatCard icon={<FaBullhorn />} label="Announcements" value={stats.totalAnnouncements} accent="sage" />
         <StatCard icon={<FaVideo />} label="Instagram Reels" value={stats.totalReels} accent="brown" />
         <StatCard icon={<FaTicketAlt />} label="Coupons" value={stats.totalCoupons} accent="sage" />
+        <StatCard
+          icon={<FaInbox />}
+          label="Unread Contact Messages"
+          value={stats.unreadMessages ?? 0}
+          accent="rose"
+          linkTo="/admin/contact-messages"
+        />
       </div>
 
       <div className="dash-cols">

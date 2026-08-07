@@ -151,3 +151,11 @@ export const adminService = {
   getAnalytics: () => api.get("/admin/analytics"),
   allCustomizations: () => api.get("/admin/customizations"),
 };
+
+export const contactMessageService = {
+  submit: (data) => api.post("/contact-messages", data),
+  adminAll: (params) => api.get("/contact-messages", { params }),
+  unreadCount: () => api.get("/contact-messages/unread-count"),
+  update: (id, data) => api.put(`/contact-messages/${id}`, data),
+  remove: (id) => api.delete(`/contact-messages/${id}`),
+};
