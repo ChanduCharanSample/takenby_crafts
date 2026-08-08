@@ -7,6 +7,8 @@ import {
   FaWhatsapp,
   FaInstagram,
   FaClock,
+  FaGlobe,
+  FaDirections,
 } from "react-icons/fa";
 import { useToast } from "../context/ToastContext";
 import { useContent } from "../context/ContentContext";
@@ -39,6 +41,8 @@ const Contact = () => {
   const instagram = (social?.instagram || "").trim() || (settings?.instagramUsername
     ? `https://instagram.com/${settings.instagramUsername}`
     : "");
+  const mapsLink = (social?.maps || "").trim();
+  const websiteLink = (social?.website || "").trim();
   const websiteName = settings?.websiteName || "TakenBy_Crafts";
 
   const handleChange = (e) => {
@@ -89,7 +93,7 @@ const Contact = () => {
       )}`
     : "";
 
-  const hasInfo = phone || whatsapp || email || hours || hasAddress || instagram;
+  const hasInfo = phone || whatsapp || email || hours || hasAddress || instagram || mapsLink || websiteLink;
 
   return (
     <div>
@@ -159,6 +163,34 @@ const Contact = () => {
                   <p>
                     {[address.city, address.state, address.pincode].filter(Boolean).join(", ")}
                   </p>
+                </div>
+              </div>
+            )}
+            {mapsLink && (
+              <div className="contact-card">
+                <FaDirections />
+                <div>
+                  <h4>Get Directions</h4>
+                  <p>
+                    <a href={mapsLink} target="_blank" rel="noreferrer">
+                      Open in Google Maps
+                    </a>
+                  </p>
+                  <p>Plan your visit to our studio</p>
+                </div>
+              </div>
+            )}
+            {websiteLink && (
+              <div className="contact-card">
+                <FaGlobe />
+                <div>
+                  <h4>Visit Our Website</h4>
+                  <p>
+                    <a href={websiteLink} target="_blank" rel="noreferrer">
+                      {websiteName}
+                    </a>
+                  </p>
+                  <p>Explore our full collection online</p>
                 </div>
               </div>
             )}
