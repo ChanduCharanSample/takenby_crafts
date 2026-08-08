@@ -90,6 +90,11 @@ const getProducts = async (req, res) => {
         break;
     }
 
+    // Tiebreaker for stable pagination: many products share the same sort key
+    // (e.g. createdAt), and MongoDB gives no guaranteed order for equal keys,
+    // which causes the same product to reappear across pages with skip/limit.
+    sort._id = -1;
+
     const total = await Product.countDocuments(filter);
     const products = await Product.find(filter)
       .populate("category", "name slug")
