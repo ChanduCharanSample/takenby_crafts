@@ -68,6 +68,16 @@ const Shop = () => {
     setSearchParams(next);
   };
 
+  const goToPage = (p) => {
+    const next = new URLSearchParams(searchParams);
+    if (Number(p) <= 1) {
+      next.delete("page");
+    } else {
+      next.set("page", String(p));
+    }
+    setSearchParams(next);
+  };
+
   const clearFilters = () => setSearchParams({});
 
   return (
@@ -227,7 +237,7 @@ const Shop = () => {
                   <button
                     key={p}
                     className={`page-btn ${Number(page) === p ? "active" : ""}`}
-                    onClick={() => updateParam("page", String(p))}
+                    onClick={() => goToPage(p)}
                   >
                     {p}
                   </button>
