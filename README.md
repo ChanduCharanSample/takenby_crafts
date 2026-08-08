@@ -1,331 +1,826 @@
-TakenBy_Crafts
+# 🧶 TakenBy_Crafts
 
-TakenBy_Crafts is a full-stack handmade crafts e-commerce platform for discovering, purchasing, and requesting customized handmade products such as resin art, preserved flower jewellery, photo frames, gift hampers, crochet & fiber art, clay crafts, and home décor.
+> **Handmade with love, crafted for your special moments. 🤍**
 
-✨ Features
+**TakenBy_Crafts** is a full-stack e-commerce platform built for a real handmade crafts business. It provides customers with an easy way to discover handmade products, place orders, request custom creations, and connect with the brand.
 
-Customer
+The platform also provides a secure **Admin Dashboard** where the business owner can manage products, categories, orders, customers, website content, announcements, reels, FAQs, enquiries, and other store information without modifying the source code.
 
-Browse and search products
+---
 
-Shop by category
+## ✨ Features
 
-Product details and stock information
+### 🛍️ Customer Features
 
-Cart and wishlist
+- Browse handmade products
+- Browse products by category
+- Product search
+- Product details
+- Product image gallery
+- Product sharing
+- Add to Cart
+- Wishlist
+- Product reviews and ratings
+- Customer registration
+- Email OTP verification
+- Customer login
+- Forgot password
+- Password reset through email
+- Customer account
+- Order placement
+- Order history
+- Order details
+- Order status tracking
+- Coupon support
+- Custom order requests
+- Reference image uploads for custom orders
+- Contact form
+- FAQs
+- Responsive mobile-friendly interface
 
-Customer authentication and account
+---
 
-Checkout and order management
+### 👩‍💼 Admin Features
 
-Custom order requests
+The Admin Dashboard provides complete management of the business website.
 
-Coupons and discounts
+#### Product Management
 
-Contact/customer enquiries
+- Add products
+- Edit products
+- Delete products
+- Upload product images
+- Replace product images
+- Product pricing
+- Discounts
+- Stock management
+- Low-stock threshold
+- Product categories
+- Product flags
+- Featured products
+- Best sellers
+- New arrivals
+- Customizable products
+- Personalized products
 
-FAQs
+#### Order Management
 
-Order tracking/status
+- View orders
+- View order details
+- Update order status
+- Manage customer orders
+- Manage payment verification
+- Track order progress
 
-Admin
+#### Customer Management
 
-Admin dashboard
+- View registered customers
+- View customer information
+- Manage customer accounts
 
-Product and category management
+#### Custom Orders
 
-Inventory and pricing management
+- View custom order requests
+- Review customer requirements
+- View uploaded reference images
+- Manage customization requests
+- Update custom order status
 
-Order management
+#### Content Management
 
-Customer management
+Admin can update website content without changing source code:
 
-Custom order management
+- Homepage content
+- Hero section
+- Hero images
+- Announcements
+- Instagram reels
+- Gallery
+- FAQs
+- About page
+- Contact information
+- Footer information
+- Social media links
+- Business information
+- Website settings
+- Logo
+- Favicon
 
-FAQ management
+#### Other Management
 
-Coupon/discount management
+- Categories
+- Coupons
+- Reviews
+- Customer enquiries
+- Inventory
+- Website statistics
+- Store settings
 
-Customer enquiry management
+---
 
-Store/content management
+# 🎨 Product Categories
 
-Product image management
+TakenBy_Crafts supports handmade collections including:
 
-🛠️ Tech Stack
+- 🌸 Resin Art
+- 🪷 Preserved Flower Jewellery
+- 🖼️ Photo Frames
+- 🎁 Gift Hampers
+- 🏡 Home Décor
+- ☕ Resin Coasters
+- 🎨 Clay Crafts
+- 🧶 Crochet & Fiber Art
+- 🌷 Pipe Cleaner Creations
+- 💌 Vintage Letters
+- 💝 Personalized Gifts
+- ✨ Custom Orders
 
-Frontend: React, Vite, JavaScript, HTML, CSS
+Categories and products can be managed from the Admin Dashboard.
 
-Backend: Node.js, Express.js, REST APIs
+---
 
-Database: MongoDB, Mongoose
+# 🛠️ Tech Stack
 
-Authentication: JWT-based authentication and protected/admin routes
+## Frontend
 
-Deployment: Separate frontend/backend deployment architecture
+- React 18
+- Vite
+- JavaScript
+- React Router DOM
+- Axios
+- React Context API
+- HTML5
+- CSS3
 
-Only technologies and services actually present in the repository should be added to this list.
+## Backend
 
-📁 Project Structure
+- Node.js
+- Express.js
+- REST API
+- MVC Architecture
+- Middleware-based authentication and authorization
 
+## Database
+
+- MongoDB
+- Mongoose
+
+The project can use local MongoDB during development and MongoDB Atlas for production.
+
+## Authentication
+
+- JWT
+- bcrypt
+- Email OTP verification
+- Password reset
+- Role-based authorization
+
+## Email
+
+- Nodemailer
+- SMTP
+
+## Image/File Handling
+
+- Multer for backend uploads
+- Production-ready external image storage configuration
+
+---
+
+# 📁 Project Structure
+
+```text
 TakenBy_Crafts/
+│
 ├── frontend/
+│   ├── src/
+│   │   ├── components/
+│   │   ├── context/
+│   │   ├── pages/
+│   │   ├── services/
+│   │   ├── utils/
+│   │   ├── styles/
+│   │   ├── App.jsx
+│   │   └── main.jsx
+│   │
+│   ├── public/
+│   └── package.json
+│
 ├── backend/
+│   ├── config/
+│   ├── controllers/
+│   ├── middleware/
+│   ├── models/
+│   ├── routers/
+│   ├── services/
+│   ├── seed/
+│   ├── uploads/
+│   ├── server.js
+│   └── package.json
+│
 ├── README.md
 ├── ARCHITECTURE.md
 ├── .env.example
 └── .gitignore
+```
 
-See ARCHITECTURE.md for the complete repository structure.
+For the complete architecture and API documentation, see **[ARCHITECTURE.md](./ARCHITECTURE.md)**.
 
-🚀 Getting Started
+---
 
-Prerequisites
+# 🚀 Getting Started
 
-Node.js
+## Prerequisites
 
-npm
+Install the following before running the project:
 
-MongoDB or a MongoDB deployment
+- Node.js
+- npm
+- Git
+- MongoDB
 
-Git
+For production, MongoDB Atlas can be used instead of a local MongoDB server.
 
-Check versions:
+Check your installation:
 
+```bash
 node -v
 npm -v
+git --version
+```
 
-Clone
+---
 
-git clone <YOUR_PUBLIC_REPOSITORY_URL>
+# 📥 Clone the Repository
+
+```bash
+git clone <YOUR_GITHUB_REPOSITORY_URL>
 cd TakenBy_Crafts
+```
 
-Install dependencies
+---
 
+# 📦 Install Dependencies
+
+## Frontend
+
+```bash
 cd frontend
 npm install
+```
 
-cd ../backend
+## Backend
+
+Open another terminal:
+
+```bash
+cd backend
 npm install
+```
 
-Use the scripts defined in each package.json.
+---
 
-🔐 Environment Variables
+# 🔐 Environment Variables
 
-Sensitive configuration must never be committed to GitHub.
+Sensitive information must **never** be committed to GitHub.
 
-Create environment files using .env.example as the template. Use the exact variable names required by the current codebase.
+Create the required `.env` file using `.env.example` as a reference.
 
 Example:
 
-MONGODB_URI=
+```env
+MONGO_URI=
 JWT_SECRET=
 EMAIL_USER=
-EMAIL_PASSWORD=
+EMAIL_PASS=
+SMTP_HOST=
+SMTP_PORT=
+FRONTEND_URL=
+```
 
-Do not place real credentials in this README.
+Use the exact environment variable names defined in the current project.
 
-Never commit:
+### Never commit:
 
+```text
 .env
 .env.local
 .env.production
+```
 
-Commit only the safe template:
+### Commit only:
 
+```text
 .env.example
+```
 
-▶️ Run Locally
+The `.env.example` file must contain only safe placeholders.
 
-Backend
+---
 
+# ▶️ Run Locally
+
+## Start Backend
+
+```bash
 cd backend
 npm run dev
+```
 
-Frontend
+## Start Frontend
 
-In another terminal:
+Open another terminal:
 
+```bash
 cd frontend
 npm run dev
+```
 
-If the repository uses different scripts, follow the corresponding package.json.
+Use the scripts available in each `package.json` if the command names differ.
 
-🏗️ Architecture
+---
 
-Customer / Admin
-       ↓
-React + Vite Frontend
-       ↓
-REST API
-       ↓
-Express Middleware
-       ├── Authentication
-       ├── Authorization
-       ├── Validation
-       └── Error Handling
-       ↓
-Controllers / Services
-       ↓
-Mongoose Models
-       ↓
-MongoDB
+# 🏗️ System Architecture
 
-🛒 Main Business Flows
+```text
+                    ┌───────────────────┐
+                    │     Customer      │
+                    └─────────┬─────────┘
+                              │
+                              ▼
+                    ┌───────────────────┐
+                    │ React + Vite      │
+                    │ Frontend          │
+                    └─────────┬─────────┘
+                              │
+                           Axios
+                              │
+                              ▼
+                    ┌───────────────────┐
+                    │ Express REST API  │
+                    └─────────┬─────────┘
+                              │
+                    ┌─────────┴─────────┐
+                    │                   │
+                    ▼                   ▼
+             Authentication       Authorization
+                    │                   │
+                    └─────────┬─────────┘
+                              ▼
+                    ┌───────────────────┐
+                    │ Controllers /     │
+                    │ Services          │
+                    └─────────┬─────────┘
+                              │
+                              ▼
+                    ┌───────────────────┐
+                    │ Mongoose Models   │
+                    └─────────┬─────────┘
+                              │
+                              ▼
+                    ┌───────────────────┐
+                    │ MongoDB           │
+                    │ / MongoDB Atlas   │
+                    └───────────────────┘
+```
 
-Shopping
+---
 
-Browse Products
+# 🛒 Customer Shopping Flow
+
+```text
+Browse Website
+      ↓
+Browse Categories
+      ↓
+View Products
       ↓
 Product Details
       ↓
-Cart
+Add to Cart
       ↓
 Checkout
       ↓
-Order
+Place Order
       ↓
-Order Management
+Order Confirmation
+      ↓
+Order Tracking
+```
 
-Custom Orders
+---
 
+# 🎨 Custom Order Flow
+
+```text
 Customer
    ↓
-Custom Order Request
+Custom Orders
    ↓
-Admin Review
+Submit Requirements
    ↓
-Customization / Communication
+Upload Reference Images
+   ↓
+Admin Reviews Request
+   ↓
+Customization Discussion
    ↓
 Order Processing
+   ↓
+Completed Order
+```
 
-Customer Contact
+---
 
+# 📩 Contact Form Flow
+
+```text
+Customer
+    ↓
 Contact Form
+    ↓
+Express API
+    ↓
+MongoDB
+    ↓
+Admin Dashboard
+    ↓
+Admin Reviews Enquiry
+```
+
+Customer enquiries are stored so the Admin can review and manage them from the dashboard.
+
+---
+
+# 🔑 Authentication Flow
+
+### Customer Registration
+
+```text
+Register
+   ↓
+Email OTP Sent
+   ↓
+OTP Verification
+   ↓
+Account Activated
+   ↓
+Login
+   ↓
+JWT Authentication
+```
+
+### Forgot Password
+
+```text
+Forgot Password
       ↓
-Backend API
+Email
       ↓
-Database / Admin
+Reset Link / Token
+      ↓
+New Password
+      ↓
+Login
+```
 
-🔌 API
+Admin authentication is protected separately from normal customer access.
 
-The backend provides APIs for areas such as:
+---
 
-Authentication
+# 👩‍💼 Admin Dashboard
 
+The Admin Dashboard is designed for the business owner to manage the complete website.
+
+The Admin can manage:
+
+```text
 Products
-
 Categories
-
-Cart
-
-Wishlist
-
 Orders
-
-Custom orders
-
+Customers
+Reviews
+Custom Orders
 Coupons
-
 FAQs
+Announcements
+Instagram Reels
+Gallery
+Homepage
+Contact Information
+Footer
+Social Links
+Website Settings
+Inventory
+```
 
-Customer enquiries
+All normal business content should be manageable through the Admin Dashboard without modifying the source code.
 
-Admin operations
+---
 
-Store/content management
+# 🖼️ Image Management
 
-For the complete endpoint reference, see ARCHITECTURE.md.
+Product and website images should be managed through the Admin Dashboard.
 
-👩‍💼 Admin
+Admin can:
 
-The admin area is protected by authentication and authorization.
+- Upload images
+- Replace images
+- Delete images
+- Preview images
+- Manage product galleries
+- Update homepage images
+- Update logo
+- Update favicon
+- Update announcement images
+- Update gallery images
 
-Administrators can manage products, categories, orders, customers, custom requests, FAQs, coupons, enquiries, and store content.
+Production image storage should use the configured production storage service.
 
-Never publish admin usernames, passwords, JWT secrets, or other credentials in this repository.
+Sensitive storage credentials must be stored only in environment variables.
 
-🔒 Security
+---
 
-Never commit .env files.
+# 🔌 API
 
-Never expose API keys or database credentials.
+The backend provides REST APIs for the major application modules:
 
-Never expose JWT secrets.
+- Authentication
+- Users
+- Products
+- Categories
+- Cart
+- Wishlist
+- Orders
+- Reviews
+- Custom Orders
+- Coupons
+- FAQs
+- Contact Messages
+- Homepage Content
+- Announcements
+- Reels
+- Gallery
+- Admin Operations
+- Website Settings
 
-Never commit admin passwords.
+For the complete route and endpoint documentation, see:
 
-Store secrets in environment variables.
+**`ARCHITECTURE.md`**
 
-Use HTTPS in production.
+---
 
-Keep dependencies updated.
+# 🗄️ Database
 
-Restrict database access appropriately.
+Development can use:
 
-Use strong production secrets.
+```text
+Local MongoDB
+```
 
-Rotate any credential that becomes exposed.
+Production can use:
 
-If a secret has already been pushed to a public repository, simply deleting it from the latest file is not enough. Revoke/rotate the exposed credential and remove it from Git history where appropriate.
+```text
+MongoDB Atlas
+```
 
-📚 Documentation
+The database connection must be provided through environment variables.
 
-README.md — project overview and setup
+Example:
 
-ARCHITECTURE.md — detailed technical architecture, routes, models, business flows, deployment and development information
+```env
+MONGO_URI=<your-mongodb-connection-string>
+```
 
-.env.example — safe environment-variable template
+Never hardcode database credentials in source code.
 
-🤝 Contributing
+---
 
-Create a branch:
+# 🌐 Production Deployment
 
+The project is designed to support a production architecture such as:
+
+```text
+                  Customers
+                      │
+                      ▼
+               ┌─────────────┐
+               │  Frontend   │
+               │   Hosting   │
+               └──────┬──────┘
+                      │
+                      ▼
+               ┌─────────────┐
+               │   Backend   │
+               │   Hosting   │
+               └──────┬──────┘
+                      │
+                      ▼
+               ┌─────────────┐
+               │ MongoDB     │
+               │ Atlas       │
+               └─────────────┘
+```
+
+Production secrets must be configured through the hosting provider's environment-variable settings.
+
+Do not put production credentials inside GitHub.
+
+---
+
+# 🔒 Security
+
+Security is an important part of the project.
+
+### Never commit:
+
+- MongoDB passwords
+- MongoDB connection strings containing credentials
+- JWT secrets
+- API keys
+- SMTP passwords
+- Cloud/storage credentials
+- Deployment tokens
+- Admin passwords
+- Private customer information
+
+### Recommended practices
+
+- Store secrets in environment variables.
+- Use strong production secrets.
+- Use HTTPS in production.
+- Protect admin routes.
+- Validate user input.
+- Hash passwords using bcrypt.
+- Use JWT securely.
+- Restrict database access.
+- Keep dependencies updated.
+- Rotate credentials if they are exposed.
+
+### Important
+
+If a password, API key, database credential, or other secret has already been pushed to GitHub, simply deleting it from the latest file is **not enough**.
+
+The exposed credential should be revoked/rotated and, where necessary, removed from Git history.
+
+---
+
+# 📚 Documentation
+
+## README.md
+
+Provides:
+
+- Project overview
+- Features
+- Tech stack
+- Installation
+- Setup
+- Security information
+- Development information
+
+## ARCHITECTURE.md
+
+Contains detailed technical documentation including:
+
+- Frontend architecture
+- Backend architecture
+- Database models
+- API routes
+- Authentication flow
+- Business flows
+- Services
+- Contexts
+- Deployment configuration
+- Environment variables
+- Development decisions
+
+## .env.example
+
+Contains safe environment-variable placeholders without real credentials.
+
+---
+
+# 🧪 Development Guidelines
+
+When adding a new feature:
+
+1. Review the existing architecture.
+2. Check whether an existing model can be reused.
+3. Create/update the required database model.
+4. Create/update the backend controller.
+5. Add the API route.
+6. Add validation.
+7. Add authentication/authorization where required.
+8. Add frontend API integration.
+9. Add/update the frontend component or page.
+10. Test customer functionality.
+11. Test admin functionality.
+12. Test error and empty states.
+13. Test responsive layouts.
+14. Verify the production build.
+15. Update `ARCHITECTURE.md` when architecture changes.
+
+---
+
+# 🧹 Before Publishing to GitHub
+
+Before making this repository public, verify that it contains no:
+
+- `.env` files
+- Database credentials
+- JWT secrets
+- API keys
+- Email passwords
+- Storage credentials
+- Deployment tokens
+- Admin credentials
+- Customer personal information
+- Private uploaded files
+
+Make sure `.gitignore` contains:
+
+```gitignore
+.env
+.env.*
+!.env.example
+node_modules/
+dist/
+build/
+uploads/*
+```
+
+Only include upload folders if they are intended to be tracked and contain no private information.
+
+---
+
+# 🤝 Contributing
+
+Create a feature branch:
+
+```bash
 git checkout -b feature/your-feature
+```
 
-Make and test your changes.
+Make your changes and test them.
 
 Commit:
 
+```bash
 git add .
 git commit -m "Add your feature"
+```
 
-Push the branch:
+Push:
 
+```bash
 git push origin feature/your-feature
+```
 
-Open a Pull Request.
+Then open a Pull Request.
 
-📌 Before Publishing to GitHub
+---
 
-Verify that the repository contains no:
+# 💕 About TakenBy_Crafts
 
-Database passwords
+**TakenBy_Crafts** is a handmade craft brand focused on creating personalized gifts, meaningful memories, and handcrafted keepsakes.
 
-MongoDB connection strings with credentials
+Our collections include:
 
-JWT secrets
+- Resin Art
+- Preserved Flower Jewellery
+- Photo Frames
+- Gift Hampers
+- Personalized Gifts
+- Clay Crafts
+- Crochet & Fiber Art
+- Pipe Cleaner Creations
+- Home Décor
+- Vintage Letters
+- Custom Orders
 
-API keys
+Every creation is thoughtfully handmade with creativity, care, and love.
 
-SMTP/email passwords
+---
 
-Cloud/storage credentials
+# 🎯 Project Goal
 
-Deployment tokens
+The goal of TakenBy_Crafts is to provide a complete digital storefront for a handmade business while keeping the platform simple to manage.
 
-Admin passwords
+Customers can discover and order handmade products online, while the business owner can manage products, orders, content, customers, and website updates through the Admin Dashboard.
 
-Private customer information
+---
 
-💕 About TakenBy_Crafts
-
-TakenBy_Crafts is a handmade craft brand focused on personalized gifts, memories, and keepsakes made with care.
-
-The platform brings handmade creations such as resin art, preserved flowers, customized photo frames, gift hampers, crochet creations, clay crafts, and décor into one online shopping experience.
-
-📄 License
+# 📄 License
 
 License information has not yet been specified.
 
-Made with ❤️ for TakenBy_Crafts
+---
+
+<div align="center">
+
+### Made with ❤️ for TakenBy_Crafts
+
+**Handmade with love. Crafted for your special moments.**
+
+</div>
