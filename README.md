@@ -1,218 +1,331 @@
-# takenby_crafts
+TakenBy_Crafts
 
-# CRAFTORA — Handmade Arts & Crafts E-Commerce
+TakenBy_Crafts is a full-stack handmade crafts e-commerce platform for discovering, purchasing, and requesting customized handmade products such as resin art, preserved flower jewellery, photo frames, gift hampers, crochet & fiber art, clay crafts, and home décor.
 
-A complete, full-stack e-commerce platform for buying and selling handmade arts & crafts. Built with the MERN stack (MongoDB, Express, React, Node.js) using plain JavaScript — no TypeScript, no CSS frameworks. Fully responsive, role-based (customer / seller / admin), and beginner-friendly.
+✨ Features
 
-![Stack](https://img.shields.io/badge/stack-MERN-orange) ![License](https://img.shields.io/badge/license-MIT-green)
+Customer
 
----
+Browse and search products
 
-## Features
+Shop by category
 
-### Customers
-- Browse the shop with **search, category filters, sorting** and pagination
-- Product detail pages with rating & review system
-- **Shopping cart** with quantity management and **discount coupons**
-- **Wishlist** for saving favorite crafts
-- Checkout via **Cash on Delivery** (Razorpay online-payment placeholder is included and degrades gracefully when not configured)
-- **Order tracking** with a status timeline (Placed → Confirmed → Shipped → Delivered → Completed)
-- Order cancellation and **re-order** (one-click)
-- Submit **custom craft requests** (customization orders) and track their approval/price/status
-- Review products after delivery; reviews verified vs. unverified
-- Register / login / profile management
+Product details and stock information
 
-### Sellers
-- Dashboard with key stats
-- Product management: create, edit, delete, **inventory/stock** updates
-- View and fulfill orders (confirm → ship → deliver)
-- Manage incoming **customization requests** (approve, set price)
-- Reviews on their products, and a sales analytics page
+Cart and wishlist
 
-### Admin
-- Global dashboard with stats & charts
-- Manage **users, sellers, products, categories, orders, reviews, coupons, custom requests**
-- Coupon CRUD (name, code, discount %, validity, usage limits)
+Customer authentication and account
 
-### Platform
-- JWT-based authentication & role-based route protection (401/403)
-- File uploads via Multer (jpeg/png/webp, 5 MB) stored under `backend/uploads/`
-- Toast notifications, loading spinners, empty states
-- Fully responsive design (desktop / tablet / mobile breakpoints)
+Checkout and order management
 
----
+Custom order requests
 
-## Tech Stack
+Coupons and discounts
 
-| Layer     | Technology                                   |
-|-----------|----------------------------------------------|
-| Frontend  | React 18, React Router DOM, Axios, React Icons, Vite |
-| Backend   | Node.js, Express, Mongoose                    |
-| Database  | MongoDB (local)                              |
-| Auth      | JSON Web Tokens (JWT) + bcryptjs             |
-| Uploads   | Multer                                       |
-| Payments  | Razorpay (optional placeholder)              |
+Contact/customer enquiries
 
----
+FAQs
 
-## Folder Structure
+Order tracking/status
 
-```
-craftora/
-├── backend/
-│   ├── config/db.js
-│   ├── controllers/      # 10 controllers (user, product, cart, order, ...)
-│   ├── middleware/       # auth, role, error handler, upload
-│   ├── models/           # 9 Mongoose models
-│   ├── routers/          # 10 routers
-│   ├── seed/seed.js      # seed data (categories, products, users, coupons)
-│   ├── uploads/          # uploaded product images (git-ignored)
-│   ├── .env              # environment variables
-│   ├── .env.example
-│   └── server.js         # entry point
+Admin
+
+Admin dashboard
+
+Product and category management
+
+Inventory and pricing management
+
+Order management
+
+Customer management
+
+Custom order management
+
+FAQ management
+
+Coupon/discount management
+
+Customer enquiry management
+
+Store/content management
+
+Product image management
+
+🛠️ Tech Stack
+
+Frontend: React, Vite, JavaScript, HTML, CSS
+
+Backend: Node.js, Express.js, REST APIs
+
+Database: MongoDB, Mongoose
+
+Authentication: JWT-based authentication and protected/admin routes
+
+Deployment: Separate frontend/backend deployment architecture
+
+Only technologies and services actually present in the repository should be added to this list.
+
+📁 Project Structure
+
+TakenBy_Crafts/
 ├── frontend/
-│   ├── public/
-│   ├── src/
-│   │   ├── components/   # Navbar, Footer, ProductCard, Spinner, etc.
-│   │   ├── contexts/     # Auth, Cart, Wishlist, Toast
-│   │   ├── pages/        # public + customer pages
-│   │   ├── pages/seller/ # seller dashboard pages
-│   │   ├── pages/admin/  # admin dashboard pages
-│   │   ├── services/     # typed API wrappers per feature
-│   │   ├── styles/index.css
-│   │   └── App.jsx
-│   └── package.json
+├── backend/
 ├── README.md
+├── ARCHITECTURE.md
+├── .env.example
 └── .gitignore
-```
 
----
+See ARCHITECTURE.md for the complete repository structure.
 
-## Prerequisites
+🚀 Getting Started
 
-- [Node.js](https://nodejs.org/) **v18+** (tested on v22)
-- [MongoDB](https://www.mongodb.com/) running locally on the default port (`27017`)
+Prerequisites
 
----
+Node.js
 
-## Installation
+npm
 
-### 1. Clone & install dependencies
+MongoDB or a MongoDB deployment
 
-```bash
-git clone <your-repo-url> craftora
-cd craftora
+Git
 
-cd backend
+Check versions:
+
+node -v
+npm -v
+
+Clone
+
+git clone <YOUR_PUBLIC_REPOSITORY_URL>
+cd TakenBy_Crafts
+
+Install dependencies
+
+cd frontend
 npm install
 
-cd ../frontend
+cd ../backend
 npm install
-```
 
-### 2. Configure the backend environment
+Use the scripts defined in each package.json.
 
-Create `backend/.env` (or copy `.env.example`):
+🔐 Environment Variables
 
-```env
-PORT=5000
-MONGO_URI=mongodb://127.0.0.1:27017/craftora
-JWT_SECRET=craftora_super_secret_change_me
-JWT_EXPIRES_IN=7d
-CLIENT_URL=http://localhost:5173
-# Optional Razorpay (leave placeholders to use demo checkout fallback)
-RAZORPAY_KEY_ID=rzp_test_xxxxxxxx
-RAZORPAY_KEY_SECRET=xxxxxxxx
-```
+Sensitive configuration must never be committed to GitHub.
 
-> `JWT_SECRET` is used to sign tokens. **Change it** before deploying.
+Create environment files using .env.example as the template. Use the exact variable names required by the current codebase.
 
-### 3. Seed the database
+Example:
 
-```bash
+MONGODB_URI=
+JWT_SECRET=
+EMAIL_USER=
+EMAIL_PASSWORD=
+
+Do not place real credentials in this README.
+
+Never commit:
+
+.env
+.env.local
+.env.production
+
+Commit only the safe template:
+
+.env.example
+
+▶️ Run Locally
+
+Backend
+
 cd backend
-npm run seed
-```
+npm run dev
 
-This creates **12 categories, 22 products, 5 users, 3 coupons**. It skips if data already exists. To wipe and re-seed: `npm run seed -- --destroy`.
+Frontend
 
-### 4. Start the backend
+In another terminal:
 
-```bash
-cd backend
-npm run dev        # nodemon (auto-reload) — or `npm start` / `node server.js`
-```
-
-Backend runs on **http://localhost:5000**.
-
-### 5. Start the frontend
-
-```bash
 cd frontend
 npm run dev
-```
 
-Frontend runs on **http://localhost:5173** (Vite proxies `/api` and `/uploads` to the backend).
+If the repository uses different scripts, follow the corresponding package.json.
 
----
+🏗️ Architecture
 
-## Demo Accounts
+Customer / Admin
+       ↓
+React + Vite Frontend
+       ↓
+REST API
+       ↓
+Express Middleware
+       ├── Authentication
+       ├── Authorization
+       ├── Validation
+       └── Error Handling
+       ↓
+Controllers / Services
+       ↓
+Mongoose Models
+       ↓
+MongoDB
 
-| Role     | Email                 | Password    |
-|----------|-----------------------|-------------|
-| Admin    | `admin@craftora.com`  | `admin123`  |
-| Seller 1 | `seller@craftora.com` | `seller123` |
-| Seller 2 | `seller2@craftora.com`| `seller123` |
-| Customer | `customer@craftora.com` | `customer123` |
+🛒 Main Business Flows
 
-> Customer accounts registered through the UI are given the **customer** role automatically.
+Shopping
 
-## Demo Coupons
+Browse Products
+      ↓
+Product Details
+      ↓
+Cart
+      ↓
+Checkout
+      ↓
+Order
+      ↓
+Order Management
 
-| Code        | Discount |
-|-------------|----------|
-| `CRAFT10`   | 10%      |
-| `WELCOME20` | 20%      |
-| `FESTIVE15` | 15%      |
+Custom Orders
 
----
+Customer
+   ↓
+Custom Order Request
+   ↓
+Admin Review
+   ↓
+Customization / Communication
+   ↓
+Order Processing
 
-## API Overview
+Customer Contact
 
-Base URL: `http://localhost:5000/api`
+Contact Form
+      ↓
+Backend API
+      ↓
+Database / Admin
 
-| Method | Endpoint                          | Auth    | Description                        |
-|--------|-----------------------------------|---------|------------------------------------|
-| POST   | `/users/register`                 | –       | Register a new user                |
-| POST   | `/users/login`                    | –       | Login, returns JWT                 |
-| GET    | `/users/profile`                  | User    | Current profile                    |
-| PUT    | `/users/profile`                  | User    | Update profile                     |
-| GET    | `/products`                       | –       | List products (search/filter/sort/pagination) |
-| GET    | `/products/:id`                   | –       | Product details                    |
-| GET    | `/categories`                     | –       | All categories                     |
-| GET/POST | `/cart`, `/cart`                | User    | Get / add to cart                  |
-| PUT    | `/cart/:itemId`                   | User    | Update cart item quantity           |
-| DELETE | `/cart/:itemId`                   | User    | Remove cart item                    |
-| GET/POST | `/wishlist`, `/wishlist`        | User    | Get / add to wishlist               |
-| POST   | `/orders`                         | User    | Place order (COD / Razorpay)       |
-| GET    | `/orders/my-orders`               | User    | My orders                          |
-| POST   | `/reviews`                        | User    | Review a delivered product          |
-| POST   | `/customizations`                 | User    | Submit a custom craft request       |
-| GET    | `/coupons/validate/:code`         | User    | Validate a coupon                   |
-| ...    | seller/admin routers              | Seller/Admin | Dashboard & management endpoints |
+🔌 API
 
-Routers are mounted under: `/api/users`, `/api/products`, `/api/categories`, `/api/cart`, `/api/wishlist`, `/api/orders`, `/api/reviews`, `/api/customizations`, `/api/coupons`, `/api/admin`.
+The backend provides APIs for areas such as:
 
----
+Authentication
 
-## Testing
+Products
 
-- **Backend endpoints**: the seed + controllers were verified with real HTTP requests (register, login, cart, coupon, order place/cancel, wishlist, customization approval flow, admin stats/analytics, role protection, review lifecycle).
-- **Frontend rendering**: every public page and every protected page (customer, seller, admin dashboards) was rendered in headless Chrome via Puppeteer and confirmed free of runtime errors.
-- **Production build**: `npm run build` in `frontend/` completes successfully (Vite).
+Categories
 
----
+Cart
 
-## License
+Wishlist
 
-MIT
+Orders
+
+Custom orders
+
+Coupons
+
+FAQs
+
+Customer enquiries
+
+Admin operations
+
+Store/content management
+
+For the complete endpoint reference, see ARCHITECTURE.md.
+
+👩‍💼 Admin
+
+The admin area is protected by authentication and authorization.
+
+Administrators can manage products, categories, orders, customers, custom requests, FAQs, coupons, enquiries, and store content.
+
+Never publish admin usernames, passwords, JWT secrets, or other credentials in this repository.
+
+🔒 Security
+
+Never commit .env files.
+
+Never expose API keys or database credentials.
+
+Never expose JWT secrets.
+
+Never commit admin passwords.
+
+Store secrets in environment variables.
+
+Use HTTPS in production.
+
+Keep dependencies updated.
+
+Restrict database access appropriately.
+
+Use strong production secrets.
+
+Rotate any credential that becomes exposed.
+
+If a secret has already been pushed to a public repository, simply deleting it from the latest file is not enough. Revoke/rotate the exposed credential and remove it from Git history where appropriate.
+
+📚 Documentation
+
+README.md — project overview and setup
+
+ARCHITECTURE.md — detailed technical architecture, routes, models, business flows, deployment and development information
+
+.env.example — safe environment-variable template
+
+🤝 Contributing
+
+Create a branch:
+
+git checkout -b feature/your-feature
+
+Make and test your changes.
+
+Commit:
+
+git add .
+git commit -m "Add your feature"
+
+Push the branch:
+
+git push origin feature/your-feature
+
+Open a Pull Request.
+
+📌 Before Publishing to GitHub
+
+Verify that the repository contains no:
+
+Database passwords
+
+MongoDB connection strings with credentials
+
+JWT secrets
+
+API keys
+
+SMTP/email passwords
+
+Cloud/storage credentials
+
+Deployment tokens
+
+Admin passwords
+
+Private customer information
+
+💕 About TakenBy_Crafts
+
+TakenBy_Crafts is a handmade craft brand focused on personalized gifts, memories, and keepsakes made with care.
+
+The platform brings handmade creations such as resin art, preserved flowers, customized photo frames, gift hampers, crochet creations, clay crafts, and décor into one online shopping experience.
+
+📄 License
+
+License information has not yet been specified.
+
+Made with ❤️ for TakenBy_Crafts
