@@ -9,6 +9,8 @@ import {
   FaPhone,
   FaEnvelope,
   FaMapMarkerAlt,
+  FaGlobe,
+  FaWhatsapp,
 } from "react-icons/fa";
 import { useContent } from "../context/ContentContext";
 import { getImageUrl } from "../utils/helpers";
@@ -22,6 +24,9 @@ const Footer = () => {
     { url: social?.facebook, icon: <FaFacebookF />, label: "Facebook" },
     { url: social?.youtube, icon: <FaYoutube />, label: "YouTube" },
     { url: social?.pinterest, icon: <FaPinterestP />, label: "Pinterest" },
+    { url: social?.maps, icon: <FaMapMarkerAlt />, label: "Google Maps" },
+    { url: social?.website, icon: <FaGlobe />, label: "Website" },
+    { url: social?.whatsapp, icon: <FaWhatsapp />, label: "WhatsApp" },
   ].filter((s) => s.url);
 
   const quickLinks = footer?.quickLinks?.length ? footer.quickLinks : [

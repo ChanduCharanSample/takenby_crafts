@@ -1183,6 +1183,7 @@ h4 {
 
 .social-icons {
   display: flex;
+  flex-wrap: wrap;
   gap: 10px;
 }
 
